@@ -15,5 +15,11 @@
   		<param-name>contextConfigLocation</param-name>
   		<param-value>kr.or.hotsource.WebMvcConfiguration</param-value>
   	</init-param>
+  	<load-on-startup>1</load-on-startup>
   </servlet>
+  <!-- 모든 요청을 DispatcherServlet에게 넘긴다. -->
+  <servlet-mapping>
+  	<servlet-name>mvc</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
 </web-app>
