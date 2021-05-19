@@ -1,20 +1,21 @@
 package kr.or.hotsource.dto;
 
 public class Beacon {
-	// UUID 비콘의 UUID
-	private String uuid;
+	private String uuid; // UUID 비콘의 UUID
+	private String city; // City 비콘 설치 도시
+	private String state; // State 비콘 설치 지역
+	private String building; // Building 비콘 설치 건물
+	private String floor; // Floor F또는 B로 시작하는 층수
+	private String section; // 해당 층수에서 설정된 구역
+	
+	
+	public String getSection() {
+		return section;
+	}
 
-	// City 비콘 설치 도시
-	private String city;
-
-	// State 비콘 설치 지역
-	private String state;
-
-	// Building 비콘 설치 건물
-	private String building;
-
-	// Floor F또는 B로 시작하는 층수
-	private String floor;
+	public void setSection(String section) {
+		this.section = section;
+	}
 
 	public String getUuid() {
 		return uuid;
@@ -59,7 +60,7 @@ public class Beacon {
 	@Override
 	public String toString() {
 		return "Beacon [uuid=" + uuid + ", city=" + city + ", state=" + state + ", building=" + building + ", floor="
-				+ floor + "]";
+				+ floor + ", section=" + section + "]";
 	}
 
 	// Beacon 모델 복사
