@@ -28,9 +28,16 @@ public class DBConfig implements TransactionManagementConfigurer{
 		return datasource;
 	}
 	
-	@Override
+	/*@Override
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		return new DataSourceTransactionManager(dataSource());
+	}*/
+	@Override
+	public PlatformTransactionManager annotationDrivenTransactionManager() {
+		return transactionManager();
 	}
 	
+	public PlatformTransactionManager transactionManager() {
+		return new DataSourceTransactionManager(dataSource());
+	}
 }

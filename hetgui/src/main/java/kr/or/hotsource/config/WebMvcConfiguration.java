@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"kr.or.hotsource.controller"})
+@ComponentScan(basePackages = {"kr.or.hotsource.controller"}) 
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	
 	@Override
