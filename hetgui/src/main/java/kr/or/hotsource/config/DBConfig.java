@@ -28,10 +28,16 @@ public class DBConfig implements TransactionManagementConfigurer{
 		return datasource;
 	}
 	
-	/*@Override
-	public PlatformTransactionManager annotationDrivenTransactionManager() {
-		return new DataSourceTransactionManager(dataSource());
-	}*/
+	@Bean
+	public DataSource callSource() {
+		BasicDataSource datasource = new BasicDataSource();
+		datasource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		datasource.setUrl("jdbc:mysql://localhost:3306/hetgui?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC");
+		datasource.setUsername(dbUser);
+		datasource.setPassword(dbPassword);
+		return datasource;
+	}
+	
 	@Override
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		return transactionManager();
