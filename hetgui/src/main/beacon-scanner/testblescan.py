@@ -1,3 +1,4 @@
+#https://m.blog.naver.com/alsrb968/221039309861
 # test BLE Scanning software
 # jcs 6/8/2014
 
