@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import kr.or.hotsource.annotation.GetLogDatabase;
+import kr.or.hotsource.annotation.PostLogDatabase;
 import kr.or.hotsource.dao.LocationDao;
 import kr.or.hotsource.dto.Flash;
 import kr.or.hotsource.dto.Location;
@@ -33,33 +35,36 @@ public class HetguiApiController {
 	@Resource
 	LocationService locationService;
 	
+	@GetLogDatabase
 	@RequestMapping(path="/flashes", method=RequestMethod.GET)
 	public Map<String,Object> getFlashes(){
 		Map<String,Object>map = new HashMap<>();
 		List<Flash> flashes=flashService.getFlashs();
-		System.out.println("왔음");
+		System.out.println(flashes);
 		map.put("item", flashes);
 		return map;
 	}
 	
+	@PostLogDatabase
 	@RequestMapping(path="/location", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String,Object> location(@RequestBody Location location){
 		Map<String,Object>map = new HashMap<>();
 		String userLocation=locationService.recvLocation(location);
 		System.out.println(userLocation);
-		map.put("result", userLocation);
+		map.put("status", "success");
+		map.put("location",userLocation); //인코딩 필요
 		return map;
 	}
+	
+	@PostLogDatabase
 	@RequestMapping(path="/location", method=RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public Map<String,Object> locationForForm(Location location){
 		Map<String,Object>map = new HashMap<>();
 		String userLocation=locationService.recvLocation(location);
-		
 		location.setClientIp(getIpAddr());
-		System.out.println("location:"+location);
-		System.out.println(userLocation);
-		//map.put("result", userLocation);
-		map.put("result", "test");
+		System.out.println(userLocation);		
+		map.put("status", "success");
+		map.put("location",userLocation); //인코딩 필요
 		return map;
 	}
 	

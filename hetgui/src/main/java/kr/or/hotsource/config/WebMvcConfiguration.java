@@ -3,6 +3,7 @@ package kr.or.hotsource.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -12,7 +13,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"kr.or.hotsource.controller"}) 
+@EnableAspectJAutoProxy
+@ComponentScan(basePackages = {"kr.or.hotsource.controller", "kr.or.hotsource.aop"}) 
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	
 	@Override

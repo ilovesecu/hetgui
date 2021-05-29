@@ -10,6 +10,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.version>4.3.14.RELEASE</spring.version>
+    <org.aspectj-version>1.8.10</org.aspectj-version>
     <jackson2.version>2.8.6</jackson2.version>
   </properties>
   <dependencies>
@@ -54,13 +55,6 @@
 	    <artifactId>mariadb-java-client</artifactId>
 	    <version>2.7.0</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-	<dependency>
-	    <groupId>mysql</groupId>
-	    <artifactId>mysql-connector-java</artifactId>
-	    <version>8.0.19</version>
-	</dependency>
-	
 	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-jdbc</artifactId>
@@ -76,6 +70,36 @@
 	    <artifactId>commons-dbcp2</artifactId>
 	    <version>2.1.1</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+	<!-- procedure call을 위한 mysql-connector(mariadb connector에서는 procedure call이 지원X) -->
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>8.0.19</version>
+	</dependency>
+	<!-- AOP -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aop</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<!-- AspectJ -->
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjrt</artifactId>
+		<version>${org.aspectj-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+		<version>${org.aspectj-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjtools</artifactId>
+		<version>${org.aspectj-version}</version>
+	</dependency>
+
 	<!-- Test Unit -->
     <dependency>
       <groupId>junit</groupId>

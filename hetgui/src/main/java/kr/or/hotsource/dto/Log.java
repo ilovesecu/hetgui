@@ -4,13 +4,10 @@ public class Log {
 
 	// Log id 로그 아이디
 	private Integer id;
-
 	// IP Addr 아이피 주소
 	private String ip;
-
 	// Method 무엇을 요청했는지
 	private String method;
-
 	// Time 수집 시간
 	private String time;
 
