@@ -13,6 +13,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -28,10 +30,11 @@ import kr.or.hotsource.utils.Util;
 public class LogAspect {
 	@Resource
 	LogService logService;
+	Logger logger = LoggerFactory.getLogger(LogAspect.class);
 	
 	@AfterReturning("@annotation(kr.or.hotsource.annotation.PostLogDatabase)")
 	public void postLogDatabase(JoinPoint joinPoint) {
-		
+		logger.info("로그 확인");
 		/*
 		String parameterName;
 		Object[] parameterValues = joinPoint.getArgs(); 
