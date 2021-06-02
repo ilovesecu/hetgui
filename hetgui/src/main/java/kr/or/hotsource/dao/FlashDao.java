@@ -30,4 +30,7 @@ public class FlashDao {
 		Map<String,?> params = Collections.singletonMap("id", id);
 		return jdbc.queryForObject(SELECT_FLASH, params, Flash.class);
 	}
+	public Integer selectFlashCount() {
+		return jdbc.queryForObject(SELECT_FLASH_COUNT, Collections.EMPTY_MAP, Integer.class);
+	}
 }

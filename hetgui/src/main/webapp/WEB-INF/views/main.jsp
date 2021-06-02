@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -289,7 +290,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">Beacons</span>
                 <span class="info-box-number">
-                	10<small>개</small>
+                	${requestScope.beaconCount}<small>개</small>
                 	<span class="clickable"><i class="fas fa-arrow-circle-right"></i></span>
                 </span>
               </div>
@@ -307,7 +308,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">Flash Lights</span>
                 <span class="info-box-number">
-                	10<small>개</small>
+                	${requestScope.flashCount}<small>개</small>
                 	<span class="clickable"><i class="fas fa-arrow-circle-right"></i></span>
                 </span>
               </div>
@@ -1160,5 +1161,6 @@
 <script src="js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="js/pages/dashboard2.js"></script>
+
 </body>
 </html>
