@@ -25,11 +25,10 @@
     <img class="animation__wobble" src="img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
   </div>
  
- <!-- header header header header  ---------------------------------------------------- -->
-<jsp:include page="header.jsp"/>
-
-<!-- aside aside aside aside aside  ---------------------------------------------------- -->
-  <jsp:include page="aside.jsp"	/>
+ 	<!-- header header header header  ---------------------------------------------------- -->
+	<jsp:include page="../includes/header.jsp"/>
+	<!-- aside aside aside aside aside  ---------------------------------------------------- -->
+	<jsp:include page="../includes/aside.jsp"	/>
   
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -901,7 +900,7 @@
   <!-- /.control-sidebar -->
   
 <!-- footer footer footer footer  ---------------------------------------------------- -->
-<jsp:include page="footer.jsp"/>
+<jsp:include page="../includes/footer.jsp"/>
 
 </div>
 <!-- ./wrapper -->
