@@ -31,4 +31,7 @@ public class BeaconDao {
 		Map<String,?> params = Collections.singletonMap("uuid", uuid);
 		return jdbc.queryForObject(SELECT_BEACON, params, Beacon.class);
 	}
+	public Integer selectBeaconCount() {
+		return jdbc.queryForObject(SELECT_BEACON_COUNT, Collections.EMPTY_MAP, Integer.class);
+	}
 }

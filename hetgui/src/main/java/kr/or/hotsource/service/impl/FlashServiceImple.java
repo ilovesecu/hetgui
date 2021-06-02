@@ -22,5 +22,10 @@ public class FlashServiceImple implements FlashService {
 	public Flash getFlash(Integer id) {
 		return flashDao.selectFlash(id);
 	}
+	
+	@Override
+	public Integer getFlashCount() {
+		return flashDao.selectFlashCount();
+	}
 
 }

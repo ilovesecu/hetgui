@@ -7,4 +7,5 @@ import kr.or.hotsource.dto.Beacon;
 public interface BeaconService {
 	public List<Beacon> getBeacons();
 	public Beacon getBeacon(String uuid);
+	public Integer getBeaconCount();
 }
