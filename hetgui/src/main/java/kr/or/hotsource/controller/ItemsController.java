@@ -19,10 +19,10 @@ public class ItemsController {
 	
 	@RequestMapping(path="/beacons", method=RequestMethod.GET)
 	public String getBeacons() {
-		return "items";
+		return "beacons";
 	}
 	@RequestMapping(path="/flashes", method=RequestMethod.GET)
 	public String getFlases() {
-		return "items";
+		return "flashes";
 	}
 }
