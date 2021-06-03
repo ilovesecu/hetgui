@@ -27,5 +27,11 @@ public class FlashServiceImple implements FlashService {
 	public Integer getFlashCount() {
 		return flashDao.selectFlashCount();
 	}
+	
+	//손전등 추가
+	@Override
+	public Integer addFlash(Flash flash) {
+		return flashDao.insertFlash(flash);
+	}
 
 }

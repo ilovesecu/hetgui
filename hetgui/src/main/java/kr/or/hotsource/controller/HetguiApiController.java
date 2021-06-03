@@ -35,6 +35,7 @@ public class HetguiApiController {
 	@Resource
 	LocationService locationService;
 	
+	//손전등 리스트 전송
 	@Logging
 	@RequestMapping(path="/flashes", method=RequestMethod.GET)
 	public Map<String,Object> getFlashes(){
@@ -46,13 +47,19 @@ public class HetguiApiController {
 		return map;
 	}
 	
+	//손전등 추가
+	@RequestMapping(path="/flashes", method=RequestMethod.POST)
+	public Integer addFlash(Flash flash) {
+		System.out.println(flash);
+		return flashService.addFlash(flash);
+	}
+	
 	@Logging
 	@RequestMapping(path="/location", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String,Object> location(@RequestBody Location location){
 		Map<String,Object>map = new HashMap<>();
 		String userLocation=locationService.recvLocation(location);
 		map.put("status", "success");
-		//map.put("location",userLocation); //인코딩 필요
 		System.out.println(userLocation);
 		return map;
 	}
@@ -65,10 +72,9 @@ public class HetguiApiController {
 				((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest()
 		));
 		String userLocation=locationService.recvLocation(location);
-		System.out.println(location);
-		System.out.println(userLocation);
+		//System.out.println(location);
+		//System.out.println(userLocation);
 		map.put("status", "success");
-		//map.put("location",userLocation); //인코딩 필요
 		return map;
 	}
 	
