@@ -76,13 +76,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="items/beacons" class="nav-link">
+                <a href="/hetgui/items/beacons" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Beacons</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="items/flashes" class="nav-link">
+                <a href="/hetgui/items/flashes" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Flashes</p>
                 </a>
