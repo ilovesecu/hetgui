@@ -114,7 +114,7 @@
 												<tr>
 													<td>
 														<div class="icheck-primary">
-															<input type="checkbox" id="check${status.index}">
+															<input type="checkbox" id="check${status.index}" data-id=${flash.id }>
 															<label for="check${status.index}"></label>
 														</div>
 													</td>
@@ -189,7 +189,7 @@
 			<!-- Control sidebar content goes here -->
 		</aside> 
 		<!-- /.control-sidebar -->
-	</div>
+	</div> 
 	<!-- ./wrapper --> 
 
 	<!-- jQuery -->
@@ -241,7 +241,7 @@
 	<tr>
 		<td>
 			<div class="icheck-primary">
-				<input type="checkbox" id="check{{index}}">
+				<input type="checkbox" id="check{{index}}" data-id={{id}}>
 				<label for="check{{index}}"></label>
 			</div>
 		</td>
@@ -257,8 +257,8 @@
 		<td class="mailbox-subject">{{sendTime}}</td>
 		<td></td>
 	</tr>
-</script>
-<script>
+</script> 
+<script> 
 	//Handlerbar 헬퍼 함수 - detachment === 'y' 일때만 running 모양 표시하기
 	Handlebars.registerHelper('isDetach',function(detachment){
 		if(detachment==='y'){
@@ -281,7 +281,7 @@
 			  }
 			}).catch(err => console.error(err));
 	};
-	 
+	//template에 ajax로 받아온 json데이터를 세팅한다.
 	const bindingTemplate = (dataList) => {
 		const template = document.querySelector("#flashTemplate").innerText;
 		const bindTemplate = Handlebars.compile(template); //bindTemplate 메서드임.
@@ -295,18 +295,28 @@
 	}
 	//손전등 추가 submit
 	const addFlash = (submitBtn) => {
-		//ajax로 해도 되지만 꼼수를 한번 써보자.
+		//ajax로 해도 되지만 꼼수를 한번 써보자. 안쓰기로...
 		/*
 		const form=document.querySelector('form[name=addFlashForm]');
 		form.submit();
 		*/
-		const model = document.querySelector('input[name=model]');
-		const firmware = document.querySelector('input[name=firmware]');
-		const body = { 'model':model, 'firmware':firmware };
+		const $model = document.querySelector('input[name=model]');
+		const $firmware = document.querySelector('input[name=firmware]');
+		const model = $model.value;
+		const firmware = $firmware.value;
+		
+		if(model==='' || firmware===''){
+			alert('model과 firmware 정보는 필수입니다.');
+			return ;
+		}
+		
+		const body = {model:model, firmware:firmware};
 		fetch('/hetgui/api/flashes', {
 		  method: 'POST',
-		  body,
-		  headers: new Headers(), // 이 부분은 따로 설정하고싶은 header가 있다면 넣으세요
+		  body : JSON.stringify(body),
+		  headers: {
+			  'Content-Type': 'application/json',
+		  },
 		}).then((res) => {
 		  if (res.status === 200 || res.status === 201) {
 			  res.text().then(text => console.log(text)); // 텍스트 출력
@@ -315,14 +325,40 @@
 		    console.error(res.statusText);
 		  }
 		}).catch(err => console.error(err));
+		$model.value="";
+		$firmware.value="";
 		submitBtn.previousElementSibling.click(); //모달창 닫기 클릭 트리거 작동
 	}
-	
+	//손전등 삭제 from server
+	const deleteFlash =() => {
+		const $checked = document.querySelectorAll('.icheck-primary > input[type=checkbox]:checked');
+		const ids=[];
+		$checked.forEach(function(v,i){
+			ids.push(v.dataset.id);
+		});
+		
+		fetch('/hetgui/api/flashes', {
+		  method: 'DELETE',
+		  body : ids.join(','),
+		  headers: {
+			  'Content-Type': 'application/json',
+		  },
+		}).then((res) => {
+		  if (res.status === 200 || res.status === 201) {
+			  res.text().then(text => console.log(text)); // 텍스트 출력
+			  refreshFlashes();
+		  } else {
+		    console.error(res.statusText);
+		  }
+		}).catch(err => console.error(err));
+	}
+	 
+	//이벤트 버블링을 이용한 이벤트 등록 (위,아래에 같은 버튼들이 있으므로.)
 	const controlEventBubble = (e) => {
 		const classList = e.target.classList;
-		if(classList.contains('btn-trash')){
-			
-		}else if(classList.contains('btn-refresh')){
+		if(classList.contains('btn-trash')){ //삭제 버튼
+			deleteFlash();
+		}else if(classList.contains('btn-refresh')){ //새로고침 버튼
 			refreshFlashes();
 		}
 	}

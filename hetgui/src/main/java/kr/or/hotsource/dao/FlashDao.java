@@ -47,4 +47,8 @@ public class FlashDao {
 	public Integer selectFlashCount() {
 		return jdbc.queryForObject(SELECT_FLASH_COUNT, Collections.EMPTY_MAP, Integer.class);
 	}
+	public int deleteFlashes(List<Integer>ids) {
+		Map<String,?> params = Collections.singletonMap("ids", ids);
+		return jdbc.update(DELETE_FLASH, params);
+	}
 }

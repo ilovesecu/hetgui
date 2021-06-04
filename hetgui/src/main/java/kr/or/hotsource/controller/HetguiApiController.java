@@ -1,5 +1,6 @@
 package kr.or.hotsource.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,16 +8,20 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import kr.or.hotsource.annotation.Logging;
+import kr.or.hotsource.aop.LogAspect;
 import kr.or.hotsource.dao.LocationDao;
 import kr.or.hotsource.dto.Flash;
 import kr.or.hotsource.dto.Location;
@@ -34,6 +39,7 @@ public class HetguiApiController {
 	BeaconService beaconService;
 	@Resource
 	LocationService locationService;
+	Logger logger = LoggerFactory.getLogger(HetguiApiController.class); 
 	
 	//손전등 리스트 전송
 	@Logging
@@ -49,9 +55,19 @@ public class HetguiApiController {
 	
 	//손전등 추가
 	@RequestMapping(path="/flashes", method=RequestMethod.POST)
-	public Integer addFlash(Flash flash) {
-		System.out.println(flash);
+	public Integer addFlash(@RequestBody Flash flash) {
 		return flashService.addFlash(flash);
+	}
+	//손전등 삭제
+	@RequestMapping(path="/flashes", method=RequestMethod.DELETE)
+	public int deleteFlash(@RequestBody String params) {
+		logger.info("ids:"+params);
+		List<Integer> ids = new ArrayList<>();
+		String[] paramArray=params.split(",");
+		for(int i=0; i<paramArray.length; i++) {
+			ids.add(Integer.parseInt(paramArray[i]));
+		}
+		return flashService.deleteFlash(ids);
 	}
 	
 	@Logging
