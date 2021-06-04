@@ -118,16 +118,16 @@
 															<label for="check${status.index}"></label>
 														</div>
 													</td>
-													<td>${flash.id }</td>
-													<td class="mailbox-subject">${flash.uuid }</td>
-													<td class="mailbox-subject">
+													<td class="changeable">${flash.id }</td>
+													<td class="mailbox-subject changeable">${flash.uuid }</td>
+													<td class="mailbox-subject changeable">
 														<c:if test="${flash.detachment eq 'y'}">
 															<i class="fas fa-running"></i>
 														</c:if>
 													</td>
-													<td class="mailbox-subject">${flash.model }</td>
-													<td class="mailbox-subject">${flash.firmware }</td>
-													<td class="mailbox-subject">${flash.sendTime }</td>
+													<td class="mailbox-subject changeable">${flash.model }</td>
+													<td class="mailbox-subject changeable">${flash.firmware }</td>
+													<td class="mailbox-subject changeable">${flash.sendTime }</td>
 													<td></td>
 												</tr>
 											</c:forEach>
@@ -228,11 +228,11 @@
       //Switch states
       if (fa) {
         $this.toggleClass('fa-star')
-        $this.toggleClass('fa-star-o')
+        $this.toggleClass('fa-star-o') 
       }
     })
   }) 
-</script>
+</script> 
 <!-- HandleBar 사용 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"
         integrity="sha512-fujQJs+fkj7+Az7XKDxMLbVuuaeljjqMQDh3TAI7nYKQMQhEztrmyuex6hlnRuttjXJ9BFvnl4r/t8r8L6gFfA=="
@@ -245,16 +245,16 @@
 				<label for="check{{index}}"></label>
 			</div>
 		</td>
-		<td>{{id}}</td>
-		<td class="mailbox-subject">{{uuid}}</td>
-		<td class="mailbox-subject">
+		<td class="changeable">{{id}}</td>
+		<td class="mailbox-subject changeable">{{uuid}}</td>
+		<td class="mailbox-subject changeable">
 			{{#isDetach detachment}}
 				{{detachment}}
 			{{/isDetach}}
 		</td>
-		<td class="mailbox-subject">{{model}}</td>
-		<td class="mailbox-subject">{{firmware}}</td>
-		<td class="mailbox-subject">{{sendTime}}</td>
+		<td class="mailbox-subject changeable">{{model}}</td>
+		<td class="mailbox-subject changeable">{{firmware}}</td>
+		<td class="mailbox-subject changeable">{{sendTime}}</td>
 		<td></td>
 	</tr>
 </script> 
@@ -295,8 +295,7 @@
 	}
 	//손전등 추가 submit
 	const addFlash = (submitBtn) => {
-		//ajax로 해도 되지만 꼼수를 한번 써보자. 안쓰기로...
-		/*
+		/* //ajax로 해도 되지만 꼼수를 한번 써보자. 안쓰기로...
 		const form=document.querySelector('form[name=addFlashForm]');
 		form.submit();
 		*/
@@ -329,11 +328,41 @@
 		$firmware.value="";
 		submitBtn.previousElementSibling.click(); //모달창 닫기 클릭 트리거 작동
 	}
+	//손전등 수정
+	const modifyFlash = (submitBtn) => {
+		const $modal = document.querySelector("#flashChangeModal");
+		const $detachment = $modal.querySelector("select[name=detachment]");
+		const detachment = $detachment.options[$detachment.selectedIndex].value;
+		const id = $modal.querySelector("input[name=id]").value;
+		const model = $modal.querySelector("input[name=model]").value;
+		const firmware = $modal.querySelector("input[name=firmware]").value;
+		if(model==='' || firmware===''){
+			alert('model과 firmware 정보는 필수입니다.');
+			return ;
+		}
+		
+		const body = {id:id, detachment:detachment, model:model, firmware:firmware};
+		fetch('/hetgui/api/flashes/'+id, {
+		  method: 'PUT',
+		  body : JSON.stringify(body),
+		  headers: {
+			  'Content-Type': 'application/json',
+		  },
+		}).then((res) => {
+		  if (res.status === 200 || res.status === 201) {
+			  res.text().then(text => console.log(text)); // 텍스트 출력
+			  refreshFlashes();
+		  } else {
+		    console.error(res.statusText);
+		  }
+		}).catch(err => console.error(err));
+		submitBtn.previousElementSibling.click(); //모달창 닫기 클릭 트리거 작동
+	}
 	//손전등 삭제 from server
 	const deleteFlash =() => {
 		const $checked = document.querySelectorAll('.icheck-primary > input[type=checkbox]:checked');
 		const ids=[];
-		$checked.forEach(function(v,i){
+		$checked.forEach(function(v){
 			ids.push(v.dataset.id);
 		});
 		
@@ -360,14 +389,41 @@
 			deleteFlash();
 		}else if(classList.contains('btn-refresh')){ //새로고침 버튼
 			refreshFlashes();
+		}else if(classList.contains('changeable')){
+			const id = e.target.closest('tr').firstElementChild.nextElementSibling.innerText;
+			e.target.dataset.toggle="modal";
+			e.target.dataset.target="#flashChangeModal";
+			e.target.dataset.id=id;
+			//document.getElementById("flashChangeModal").style.display = "block"
+    		//document.getElementById("flashChangeModal").classList.add("show")
 		}
 	}
 	 
 	document.addEventListener("DOMContentLoaded",function(){
-		const mainContent = document.querySelector("#mainContent");
-		mainContent.addEventListener("click",controlEventBubble);
-		//const syncBtn=document.querySelector(".fa-sync-alt");
-		//syncBtn.addEventListener("click",refreshFlashes);
+		const $mainContent = document.querySelector("#mainContent");
+		$mainContent.addEventListener("click",controlEventBubble);
+		
+		//수정 모달이 열리는 순간을 캡쳐하여 Ajax 요청을 보내서 클릭한 손전등에 대한 정보를 세팅한다. (bootstrap4는 jQuery를 사용해야함.)
+		$('#flashChangeModal').on('show.bs.modal', function (event) {
+			  const button = $(event.relatedTarget) // Button that triggered the modal
+			  const id = button.data('id');
+			  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+			  const modal = $(this)
+			  fetch('/hetgui/api/flashes/'+id).then((res) => {
+				  if (res.status === 200 || res.status === 201) { // 성공을 알리는 HTTP 상태 코드면
+				    res.json().then(json => {
+				    	console.log(json); // 텍스트 출력
+				    	modal.find('input[name=id]').val(json.item.id);
+				    	modal.find('select[name=detachment]').val(json.item.detachment).prop("selected",true);
+				    	modal.find('input[name=model]').val(json.item.model);
+				    	modal.find('input[name=firmware]').val(json.item.firmware);
+				    })
+				  } else { // 실패를 알리는 HTTP 상태 코드면
+				    console.error(res.statusText);
+				  }
+			  }).catch(err => console.error(err));
+		})
 	});
 </script>
  
@@ -396,12 +452,58 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="addFlash(this)">Send message</button>
+        <button type="button" class="btn btn-primary" onclick="addFlash(this)">Add flash</button>
       </div>
     </div>
   </div>
 </div>
-<!-- 꼼수용 iframe 현재는 사용하지 않음. -->
+<!-- 손전등 변경 모달 -->
+	<div class="modal fade" id="flashChangeModal" tabindex="-1"
+		aria-labelledby="flashChangeModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="fflashChangeModalLabel">Modify
+						Flash</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- <form action="/hetgui/api/flashes" method="POST" name="addFlashForm" target="fakeIframe">-->
+					<!-- <form action="#" name="ChangeFlashForm"> -->
+						<div class="form-group">
+							<label for="id" class="col-form-label">ID:</label> <input
+								type="text" class="form-control" name="id" disabled />
+						</div>
+						<div class="form-group">
+							<label for="detachment">Detachment:</label> 
+							<select class="form-control" name="detachment">
+								<option value="y">y</option>
+								<option value="n">n</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="model" class="col-form-label">Model:</label> <input
+								type="text" class="form-control" name="model" />
+						</div>
+						<div class="form-group">
+							<label for="firmware" class="col-form-label">Firmware:</label> <input
+								type="text" class="form-control" name="firmware" />
+						</div>
+					<!-- </form> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary"
+						onclick="modifyFlash(this)">Modify flash</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 꼼수용 iframe 현재는 사용하지 않음. -->
 <iframe name="fakeIframe" style="display:none"></iframe>
 </body>
 </html>

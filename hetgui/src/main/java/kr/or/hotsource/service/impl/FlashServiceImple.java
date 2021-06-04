@@ -38,5 +38,10 @@ public class FlashServiceImple implements FlashService {
 	public Integer deleteFlash(List<Integer> ids) {
 		return flashDao.deleteFlashes(ids);
 	}
+	//손전등 수정
+	@Override
+	public Integer updateFlash(Flash flash) {
+		return flashDao.updateFlash(flash);
+	}
 
 }

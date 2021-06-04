@@ -20,9 +20,11 @@ public class FlashDaoTest {
 		flashDao.insertFlash(flash);*/
 		
 		//delete test
-		List<Integer> ids = new ArrayList<>();
+		/*List<Integer> ids = new ArrayList<>();
 		ids.add(12);ids.add(13);
 		int result=flashDao.deleteFlashes(ids);
-		System.out.println(result);
+		System.out.println(result);*/
+		
+		System.out.println(flashDao.selectFlash(1));
 	}
 }

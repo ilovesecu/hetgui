@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,15 +42,26 @@ public class HetguiApiController {
 	LocationService locationService;
 	Logger logger = LoggerFactory.getLogger(HetguiApiController.class); 
 	
-	//손전등 리스트 전송
+	//전체 손전등 정보 전송
 	@Logging
 	@RequestMapping(path="/flashes", method=RequestMethod.GET)
 	public Map<String,Object> getFlashes(){
 		Map<String,Object>map = new HashMap<>();
 		List<Flash> flashes=flashService.getFlashs();
-		System.out.println(flashes);
+		logger.info("flashes:"+flashes);
 		map.put("status", "success");
 		map.put("item", flashes);
+		return map;
+	}
+	//특정 손전등에 대한 정보 전송
+	@RequestMapping(path="/flashes/{id}", method=RequestMethod.GET)
+	public Map<String,Object> getFlashes(@PathVariable(name="id")int id){
+		Map<String,Object>map = new HashMap<>();
+		System.out.println("id:"+id);
+		Flash flash = flashService.getFlash(id);
+		logger.info("flash:"+flash);
+		map.put("status", "success");
+		map.put("item", flash);
 		return map;
 	}
 	
@@ -58,6 +70,14 @@ public class HetguiApiController {
 	public Integer addFlash(@RequestBody Flash flash) {
 		return flashService.addFlash(flash);
 	}
+	
+	//손전등 수정
+	@RequestMapping(path="/flashes/{id}", method=RequestMethod.PUT)
+	public Integer updateFlash(@PathVariable(name="id")int id,@RequestBody Flash flash) {
+		logger.info("flash:"+flash);
+		return flashService.updateFlash(flash);
+	}
+	
 	//손전등 삭제
 	@RequestMapping(path="/flashes", method=RequestMethod.DELETE)
 	public int deleteFlash(@RequestBody String params) {

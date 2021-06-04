@@ -42,7 +42,7 @@ public class FlashDao {
 	}
 	public Flash selectFlash(Integer id) {
 		Map<String,?> params = Collections.singletonMap("id", id);
-		return jdbc.queryForObject(SELECT_FLASH, params, Flash.class);
+		return jdbc.queryForObject(SELECT_FLASH, params, flashMapper);
 	}
 	public Integer selectFlashCount() {
 		return jdbc.queryForObject(SELECT_FLASH_COUNT, Collections.EMPTY_MAP, Integer.class);
@@ -50,5 +50,9 @@ public class FlashDao {
 	public int deleteFlashes(List<Integer>ids) {
 		Map<String,?> params = Collections.singletonMap("ids", ids);
 		return jdbc.update(DELETE_FLASH, params);
+	}
+	public int updateFlash(Flash flash) {
+		SqlParameterSource params = new BeanPropertySqlParameterSource(flash);
+		return jdbc.update(UPDATE_FLASH, params);
 	}
 }
