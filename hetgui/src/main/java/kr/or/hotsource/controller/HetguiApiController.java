@@ -24,6 +24,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import kr.or.hotsource.annotation.Logging;
 import kr.or.hotsource.aop.LogAspect;
 import kr.or.hotsource.dao.LocationDao;
+import kr.or.hotsource.dto.Beacon;
 import kr.or.hotsource.dto.Flash;
 import kr.or.hotsource.dto.Location;
 import kr.or.hotsource.service.BeaconService;
@@ -57,7 +58,7 @@ public class HetguiApiController {
 	@RequestMapping(path="/flashes/{id}", method=RequestMethod.GET)
 	public Map<String,Object> getFlashes(@PathVariable(name="id")int id){
 		Map<String,Object>map = new HashMap<>();
-		System.out.println("id:"+id);
+		logger.info("id:"+id);
 		Flash flash = flashService.getFlash(id);
 		logger.info("flash:"+flash);
 		map.put("status", "success");
@@ -88,6 +89,50 @@ public class HetguiApiController {
 			ids.add(Integer.parseInt(paramArray[i]));
 		}
 		return flashService.deleteFlash(ids);
+	}
+	
+	//전체 비콘 정보 전송
+	@RequestMapping(path="/beacons", method=RequestMethod.GET)
+	public Map<String,Object> getBeacons(){
+		Map<String,Object>map = new HashMap<>();
+		List<Beacon> beacons=beaconService.getBeacons();
+		logger.info("beacons:"+beacons);
+		map.put("status", "success");
+		map.put("item", beacons);
+		return map;
+	}
+	//특정 비콘 정보 전송
+	@RequestMapping(path="/beacons/{uuid}", method=RequestMethod.GET)
+	public Map<String,Object> getFlashes(@PathVariable(name="uuid")String uuid){
+		Map<String,Object>map = new HashMap<>();
+		logger.info("uuid:"+uuid);
+		Beacon beacon = beaconService.getBeacon(uuid);
+		logger.info("beacon:"+beacon);
+		map.put("status", "success");
+		map.put("item", beacon);
+		return map;
+	}
+	//비콘 생성
+	@RequestMapping(path="/beacons",method=RequestMethod.POST)
+	public Integer addBeacon(@RequestBody Beacon beacon) {
+		return beaconService.addBeacon(beacon);
+	}
+	//비콘 수정
+	@RequestMapping(path="/beacons/{uuid}", method=RequestMethod.PUT)
+	public Integer updateFlash(@PathVariable(name="uuid")String uuid,@RequestBody Beacon beacon) {
+		logger.info("beacon:"+beacon);
+		return beaconService.updateBeacon(beacon,uuid);
+	}
+	//비콘 삭제
+	@RequestMapping(path="/beacons", method=RequestMethod.DELETE)
+	public Integer deleteBeacon(@RequestBody String params) {
+		logger.info("ids:"+params);
+		List<String> uuids= new ArrayList<>();
+		String[] paramArray=params.split(",");
+		for(int i=0; i<paramArray.length; i++) {
+			uuids.add(paramArray[i]);
+		}
+		return beaconService.deleteBeacons(uuids);
 	}
 	
 	@Logging

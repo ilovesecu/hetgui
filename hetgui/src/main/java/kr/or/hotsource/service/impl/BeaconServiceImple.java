@@ -31,4 +31,19 @@ public class BeaconServiceImple implements BeaconService{
 		return beaconDao.selectBeaconCount();
 	}
 
+	@Override
+	public Integer addBeacon(Beacon beacon) {
+		return beaconDao.insertBeacon(beacon);
+	}
+
+	@Override
+	public Integer deleteBeacons(List<String> uuids) {
+		return beaconDao.deleteBeacon(uuids);
+	}
+
+	@Override
+	public int updateBeacon(Beacon beacon, String old_uuid) {
+		return beaconDao.updateBeacon(beacon,old_uuid);
+	}
+
 }

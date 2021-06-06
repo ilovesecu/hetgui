@@ -8,7 +8,6 @@ public class Beacon {
 	private String floor; // Floor F또는 B로 시작하는 층수
 	private String section; // 해당 층수에서 설정된 구역
 	
-	
 	public String getSection() {
 		return section;
 	}

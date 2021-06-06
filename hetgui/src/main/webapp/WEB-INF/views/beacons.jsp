@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>HETGUI | Flashes </title>
+	<title>HETGUI | Beacons </title>
 	<!-- Google Font: Source Sans Pro -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 	<!-- Font Awesome -->
@@ -28,12 +28,12 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>Flash Status</h1>
+							<h1>Beacon Status</h1>
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="#">Home</a></li>
-								<li class="breadcrumb-item active">Flash</li>
+								<li class="breadcrumb-item active">Beacon</li>
 							</ol>
 						</div>
 					</div>
@@ -47,7 +47,7 @@
 					<div class="col-md-12">
 						<div id="mainContent" class="card card-primary card-outline">
 							<div class="card-header">
-								<h3 class="card-title">Flashes</h3>
+								<h3 class="card-title">Beacons</h3>
 
 								<!-- <div class="card-tools">
 									<div class="input-group input-group-sm">
@@ -71,7 +71,7 @@
 										<i class="far fa-square"></i>
 									</button> 
 									<div class="btn-group">
-										<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#flashAddModal">
+										<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#beaconAddModal">
 											<i class="fas fa-plus"></i>
 										</button>
 										<button type="button" class="btn btn-default btn-sm btn-trash">
@@ -101,33 +101,29 @@
 										<thead>
 											<tr>
 												<th></th>
-												<th>ID</th>
 												<th>UUID</th>
-												<th>Detachment</th>
-												<th>MODEL</th>
-												<th>Firmware</th>
-												<th>SendTime</th>
+												<th>CITY</th>
+												<th>STATE</th>
+												<th>BUILDING</th>
+												<th>FLOOR</th>
+												<th>SECTION</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${requestScope.flashes}" var="flash" varStatus="status">
+											<c:forEach items="${requestScope.beacons}" var="beacon" varStatus="status">
 												<tr>
 													<td>
 														<div class="icheck-primary">
-															<input type="checkbox" id="check${status.index}" data-id=${flash.id }>
+															<input type="checkbox" id="check${status.index}" data-id=${beacon.uuid }>
 															<label for="check${status.index}"></label>
 														</div>
 													</td>
-													<td class="changeable">${flash.id }</td>
-													<td class="mailbox-subject changeable">${flash.uuid }</td>
-													<td class="mailbox-subject changeable">
-														<c:if test="${flash.detachment eq 'y'}">
-															<i class="fas fa-running"></i>
-														</c:if>
-													</td>
-													<td class="mailbox-subject changeable">${flash.model }</td>
-													<td class="mailbox-subject changeable">${flash.firmware }</td>
-													<td class="mailbox-subject changeable">${flash.sendTime }</td>
+													<td class="mailbox-subject changeable">${beacon.uuid }</td>
+													<td class="mailbox-subject changeable">${beacon.city }</td>
+													<td class="mailbox-subject changeable">${beacon.state }</td>
+													<td class="mailbox-subject changeable">${beacon.building }</td>
+													<td class="mailbox-subject changeable">${beacon.floor }</td>
+													<td class="mailbox-subject changeable">${beacon.section }</td>
 												</tr>
 											</c:forEach>
 										</tbody> 
@@ -145,7 +141,7 @@
 										<i class="far fa-square"></i>
 									</button>
 									<div class="btn-group">
-										<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#flashAddModal">
+										<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#beaconAddModal">
 											<i class="fas fa-plus"></i>
 										</button>
 										<button type="button" class="btn btn-default btn-sm btn-trash">
@@ -173,7 +169,7 @@
 							</div>
 						</div>
 						<!-- /.card -->
-					</div>
+					</div> 
 					<!-- /.col -->
 				</div>
 				<!-- /.row -->
@@ -236,39 +232,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"
         integrity="sha512-fujQJs+fkj7+Az7XKDxMLbVuuaeljjqMQDh3TAI7nYKQMQhEztrmyuex6hlnRuttjXJ9BFvnl4r/t8r8L6gFfA=="
         crossorigin="anonymous"></script>
-<script type="flashTemplate" id="flashTemplate">
+<script type="beaconTemplate" id="beaconTemplate">
 	<tr>
 		<td>
 			<div class="icheck-primary">
-				<input type="checkbox" id="check{{index}}" data-id={{id}}>
+				<input type="checkbox" id="check{{index}}" data-id={{uuid}}>
 				<label for="check{{index}}"></label>
 			</div>
 		</td>
-		<td class="changeable">{{id}}</td>
 		<td class="mailbox-subject changeable">{{uuid}}</td>
-		<td class="mailbox-subject changeable">
-			{{#isDetach detachment}}
-				{{detachment}}
-			{{/isDetach}}
-		</td>
-		<td class="mailbox-subject changeable">{{model}}</td>
-		<td class="mailbox-subject changeable">{{firmware}}</td>
-		<td class="mailbox-subject changeable">{{sendTime}}</td>
+		<td class="mailbox-subject changeable">{{city}}</td>
+		<td class="mailbox-subject changeable">{{state}}</td>
+		<td class="mailbox-subject changeable">{{building}}</td>
+		<td class="mailbox-subject changeable">{{floor }}</td>
+		<td class="mailbox-subject changeable">{{section }}</td>
 	</tr>
 </script> 
 <script> 
-	//Handlerbar 헬퍼 함수 - detachment === 'y' 일때만 running 모양 표시하기
-	Handlebars.registerHelper('isDetach',function(detachment){
-		if(detachment==='y'){
-			return '<i class="fas fa-running"></i>';
-		}else{
-			return '';
-		}
-	});
-	
-	/* 손전등 정보 새로고침  */
-	const refreshFlashes =() => {
-		  fetch('/hetgui/api/flashes').then((res) => {
+	/* 비콘 정보 새로고침  */
+	const refreshBeacons =() => {
+		  fetch('/hetgui/api/beacons').then((res) => {
 			  if (res.status === 200 || res.status === 201) { // 성공을 알리는 HTTP 상태 코드면
 			    res.json().then(json => {
 			    	console.log(json); // 텍스트 출력
@@ -281,7 +264,7 @@
 	};
 	//template에 ajax로 받아온 json데이터를 세팅한다.
 	const bindingTemplate = (dataList) => {
-		const template = document.querySelector("#flashTemplate").innerText;
+		const template = document.querySelector("#beaconTemplate").innerText;
 		const bindTemplate = Handlebars.compile(template); //bindTemplate 메서드임.
 		let resultHTML = '';
 		const tbody = document.querySelector("tbody");
@@ -291,24 +274,35 @@
 		});
 		tbody.innerHTML = resultHTML;
 	}
-	//손전등 추가 submit
-	const addFlash = (submitBtn) => {
-		/* //ajax로 해도 되지만 꼼수를 한번 써보자. 안쓰기로...
-		const form=document.querySelector('form[name=addFlashForm]');
-		form.submit();
-		*/
-		const $model = document.querySelector('input[name=model]');
-		const $firmware = document.querySelector('input[name=firmware]');
-		const model = $model.value;
-		const firmware = $firmware.value;
+	//비콘 추가 submit
+	const addBeacon = (submitBtn) => {
+		const $modal = document.querySelector("#beaconAddModal");
+		const $uuid = $modal.querySelector('input[name=uuid]');
+		const $city = $modal.querySelector('input[name=city]');
+		const $state = $modal.querySelector('input[name=state]');
+		const $building = $modal.querySelector('input[name=building]');
+		const $floor = $modal.querySelector('input[name=floor]');
+		const $section = $modal.querySelector('input[name=section]');
 		
-		if(model==='' || firmware===''){
-			alert('model과 firmware 정보는 필수입니다.');
+		const uuid = $uuid.value;
+		const city = $city.value;
+		const state = $state.value;
+		const building = $building.value;
+		const floor = $floor.value;
+		const section = $section.value;
+		
+		if(uuid.length !== 32){
+			alert('uuid는 32자여야 합니다.');
 			return ;
 		}
 		
-		const body = {model:model, firmware:firmware};
-		fetch('/hetgui/api/flashes', {
+		if(city==='' || state==='' || building==='' || floor==='' || section===''){
+			alert('빈칸을 입력해주세요.');
+			return ;
+		}
+		
+		const body = {uuid:uuid, city:city, state:state, building:building, floor:floor,section:section};
+		fetch('/hetgui/api/beacons', {
 		  method: 'POST',
 		  body : JSON.stringify(body),
 		  headers: {
@@ -317,30 +311,41 @@
 		}).then((res) => {
 		  if (res.status === 200 || res.status === 201) {
 			  res.text().then(text => console.log(text)); // 텍스트 출력
-			  refreshFlashes();
+			  refreshBeacons();
 		  } else {
 		    console.error(res.statusText);
 		  }
 		}).catch(err => console.error(err));
-		$model.value="";
-		$firmware.value="";
+		
+		$uuid.value="";
+		$city.value="";
+		$state.value="";
+		$building.value="";
+		$floor.value="";
+		$section.value="";
 		submitBtn.previousElementSibling.click(); //모달창 닫기 클릭 트리거 작동
 	}
 	//손전등 수정
-	const modifyFlash = (submitBtn) => {
-		const $modal = document.querySelector("#flashChangeModal");
-		const $detachment = $modal.querySelector("select[name=detachment]");
-		const detachment = $detachment.options[$detachment.selectedIndex].value;
-		const id = $modal.querySelector("input[name=id]").value;
-		const model = $modal.querySelector("input[name=model]").value;
-		const firmware = $modal.querySelector("input[name=firmware]").value;
-		if(model==='' || firmware===''){
-			alert('model과 firmware 정보는 필수입니다.');
+	const modifyBeacon = (submitBtn) => {
+		const $modal = document.querySelector("#beaconChangeModal");
+		const uuid = $modal.querySelector("input[name=uuid]").value;
+		const city = $modal.querySelector("input[name=city]").value;
+		const state = $modal.querySelector("input[name=state]").value;
+		const building = $modal.querySelector("input[name=building]").value;
+		const floor = $modal.querySelector("input[name=floor]").value;
+		const section = $modal.querySelector("input[name=section]").value;
+		
+		if(uuid.length !== 32){
+			alert('uuid는 32자여야 합니다.');
+			return ;
+		}
+		if(city==='' || state==='' || building==='' || floor==='' || section===''){
+			alert('빈칸을 입력해주세요.');
 			return ;
 		}
 		
-		const body = {id:id, detachment:detachment, model:model, firmware:firmware};
-		fetch('/hetgui/api/flashes/'+id, {
+		const body = {uuid:uuid, city:city, state:state, building:building, floor:floor,section:section};
+		fetch('/hetgui/api/beacons/'+uuid, {
 		  method: 'PUT',
 		  body : JSON.stringify(body),
 		  headers: {
@@ -349,31 +354,31 @@
 		}).then((res) => {
 		  if (res.status === 200 || res.status === 201) {
 			  res.text().then(text => console.log(text)); // 텍스트 출력
-			  refreshFlashes();
+			  refreshBeacons();
 		  } else {
 		    console.error(res.statusText);
 		  }
 		}).catch(err => console.error(err));
 		submitBtn.previousElementSibling.click(); //모달창 닫기 클릭 트리거 작동
 	}
-	//손전등 삭제 from server
-	const deleteFlash =() => {
+	//비콘 삭제 from server
+	const deleteBeacon =() => {
 		const $checked = document.querySelectorAll('.icheck-primary > input[type=checkbox]:checked');
-		const ids=[];
+		const uuids=[];
 		$checked.forEach(function(v){
-			ids.push(v.dataset.id);
+			uuids.push(v.dataset.id);
 		});
 		
-		fetch('/hetgui/api/flashes', {
+		fetch('/hetgui/api/beacons', {
 		  method: 'DELETE',
-		  body : ids.join(','),
+		  body : uuids.join(','),
 		  headers: {
 			  'Content-Type': 'application/json',
 		  },
 		}).then((res) => {
 		  if (res.status === 200 || res.status === 201) {
 			  res.text().then(text => console.log(text)); // 텍스트 출력
-			  refreshFlashes();
+			  refreshBeacons();
 		  } else {
 		    console.error(res.statusText);
 		  }
@@ -384,14 +389,14 @@
 	const controlEventBubble = (e) => {
 		const classList = e.target.classList;
 		if(classList.contains('btn-trash')){ //삭제 버튼
-			deleteFlash();
+			deleteBeacon();
 		}else if(classList.contains('btn-refresh')){ //새로고침 버튼
-			refreshFlashes();
+			refreshBeacons();
 		}else if(classList.contains('changeable')){
-			const id = e.target.closest('tr').firstElementChild.nextElementSibling.innerText;
+			const uuid = e.target.closest('tr').firstElementChild.nextElementSibling.innerText;
 			e.target.dataset.toggle="modal";
-			e.target.dataset.target="#flashChangeModal";
-			e.target.dataset.id=id;
+			e.target.dataset.target="#beaconChangeModal";
+			e.target.dataset.id=uuid;
 			//document.getElementById("flashChangeModal").style.display = "block"
     		//document.getElementById("flashChangeModal").classList.add("show")
 		}
@@ -402,18 +407,20 @@
 		$mainContent.addEventListener("click",controlEventBubble);
 		
 		//수정 모달이 열리는 순간을 캡쳐하여 Ajax 요청을 보내서 클릭한 손전등에 대한 정보를 세팅한다. (bootstrap4는 jQuery를 사용해야함.)
-		$('#flashChangeModal').on('show.bs.modal', function (event) {
+		$('#beaconChangeModal').on('show.bs.modal', function (event) {
 			  const button = $(event.relatedTarget) // Button that triggered the modal
-			  const id = button.data('id');
+			  const id = button.data('id'); //uuid
 			  const modal = $(this)
-			  fetch('/hetgui/api/flashes/'+id).then((res) => {
+			  fetch('/hetgui/api/beacons/'+id).then((res) => {
 				  if (res.status === 200 || res.status === 201) { // 성공을 알리는 HTTP 상태 코드면
 				    res.json().then(json => {
 				    	console.log(json); // 텍스트 출력
-				    	modal.find('input[name=id]').val(json.item.id);
-				    	modal.find('select[name=detachment]').val(json.item.detachment).prop("selected",true);
-				    	modal.find('input[name=model]').val(json.item.model);
-				    	modal.find('input[name=firmware]').val(json.item.firmware);
+				    	modal.find('input[name=uuid]').val(json.item.uuid);
+				    	modal.find('input[name=city]').val(json.item.city);
+				    	modal.find('input[name=state]').val(json.item.state);
+				    	modal.find('input[name=building]').val(json.item.building);
+				    	modal.find('input[name=floor]').val(json.item.floor);
+				    	modal.find('input[name=section]').val(json.item.section);
 				    })
 				  } else { // 실패를 알리는 HTTP 상태 코드면
 				    console.error(res.statusText);
@@ -423,44 +430,59 @@
 	});
 </script>
  
-<!-- 손전등 추가 모달 -->
-<div class="modal fade" id="flashAddModal" tabindex="-1" aria-labelledby="flashAddModalLabel" aria-hidden="true">
+<!-- 비콘 추가 모달 -->
+<div class="modal fade" id="beaconAddModal" tabindex="-1" aria-labelledby="beaconAddModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="flashAddModalLabel">New Flash</h5>
+        <h5 class="modal-title" id="beaconAddModalLabel">New Beacon</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <!-- <form action="/hetgui/api/flashes" method="POST" name="addFlashForm" target="fakeIframe">-->
-        <form action="#" name="addFlashForm">
+        <form action="#" name="addBeaconForm">
           <div class="form-group">
-            <label for="model" class="col-form-label">Model:</label>
-            <input type="text" class="form-control" name="model"/>
+            <label for="uuid" class="col-form-label">UUID:</label>
+            <input type="text" class="form-control" name="uuid"/>
           </div>
           <div class="form-group">
-            <label for="firmware" class="col-form-label">Firmware:</label>
-            <input type="text" class="form-control" name="firmware"/>
+            <label for="city" class="col-form-label">City:</label>
+            <input type="text" class="form-control" name="city"/>
+          </div>
+          <div class="form-group">
+            <label for="state" class="col-form-label">STATE:</label>
+            <input type="text" class="form-control" name="state"/>
+          </div>
+          <div class="form-group">
+            <label for="building" class="col-form-label">BUILDING:</label>
+            <input type="text" class="form-control" name="building"/>
+          </div>
+          <div class="form-group">
+            <label for="floor" class="col-form-label">Floor:</label>
+            <input type="text" class="form-control" name="floor"/>
+          </div>
+          <div class="form-group">
+            <label for="section" class="col-form-label">Section:</label>
+            <input type="text" class="form-control" name="section"/>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="addFlash(this)">Add flash</button>
+        <button type="button" class="btn btn-primary" onclick="addBeacon(this)">Add beacon</button>
       </div>
     </div>
   </div>
 </div>
-<!-- 손전등 변경 모달 -->
-	<div class="modal fade" id="flashChangeModal" tabindex="-1"
-		aria-labelledby="flashChangeModalLabel" aria-hidden="true">
+<!-- 비콘 변경 모달 -->
+	<div class="modal fade" id="beaconChangeModal" tabindex="-1"
+		aria-labelledby="beaconChangeModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="fflashChangeModalLabel">Modify
-						Flash</h5>
+					<h5 class="modal-title" id="beaconChangeModalLabel">Modify Beacon</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -470,23 +492,28 @@
 					<!-- <form action="/hetgui/api/flashes" method="POST" name="addFlashForm" target="fakeIframe">-->
 					<!-- <form action="#" name="ChangeFlashForm"> -->
 						<div class="form-group">
-							<label for="id" class="col-form-label">ID:</label> <input
-								type="text" class="form-control" name="id" disabled />
+							<label for="id" class="col-form-label">UUID:</label> 
+							<input type="text" class="form-control" name="uuid" disabled />
 						</div>
 						<div class="form-group">
-							<label for="detachment">Detachment:</label> 
-							<select class="form-control" name="detachment">
-								<option value="y">y</option>
-								<option value="n">n</option>
-							</select>
+							<label for="detachment">CITY:</label> 
+							<input type="text" class="form-control" name="city" />
 						</div>
 						<div class="form-group">
-							<label for="model" class="col-form-label">Model:</label> <input
-								type="text" class="form-control" name="model" />
+							<label for="state" class="col-form-label">STATE:</label> 
+							<input type="text" class="form-control" name="state" />
 						</div>
 						<div class="form-group">
-							<label for="firmware" class="col-form-label">Firmware:</label> <input
-								type="text" class="form-control" name="firmware" />
+							<label for="building" class="col-form-label">Building:</label> 
+							<input type="text" class="form-control" name="building" />
+						</div>
+						<div class="form-group">
+							<label for="floor" class="col-form-label">Floor:</label> 
+							<input type="text" class="form-control" name="floor" />
+						</div>
+						<div class="form-group">
+							<label for="section" class="col-form-label">Section:</label> 
+							<input type="text" class="form-control" name="section" />
 						</div>
 					<!-- </form> -->
 				</div>
@@ -494,7 +521,7 @@
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary"
-						onclick="modifyFlash(this)">Modify flash</button>
+						onclick="modifyBeacon(this)">Modify beacon</button>
 				</div>
 			</div>
 		</div>

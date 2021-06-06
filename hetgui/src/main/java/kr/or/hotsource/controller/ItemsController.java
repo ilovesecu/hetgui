@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.or.hotsource.dto.Beacon;
 import kr.or.hotsource.dto.Flash;
 import kr.or.hotsource.service.BeaconService;
 import kr.or.hotsource.service.FlashService;
@@ -29,7 +30,9 @@ public class ItemsController {
 	}
 	
 	@RequestMapping(path="/beacons", method=RequestMethod.GET)
-	public String getBeacons() {
+	public String getBeacons(ModelMap model) {
+		List<Beacon>beacons = beaconService.getBeacons();
+		model.addAttribute("beacons",beacons);
 		return "beacons";
 	}
 }
