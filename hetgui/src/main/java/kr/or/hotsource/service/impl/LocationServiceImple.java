@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.hotsource.dao.LocationDao;
 import kr.or.hotsource.dto.Location;
+import kr.or.hotsource.dto.Locationsensing;
 import kr.or.hotsource.service.LocationService;
 
 @Service
@@ -15,8 +16,11 @@ public class LocationServiceImple implements LocationService{
 	LocationDao locationDao;
 	
 	@Override
+	public String recvLocation(Location location, Locationsensing sensing) {
+		return locationDao.runRecvLocationProc(location,sensing);
+	}
+	@Override
 	public String recvLocation(Location location) {
 		return locationDao.runRecvLocationProc(location);
 	}
-	
 }

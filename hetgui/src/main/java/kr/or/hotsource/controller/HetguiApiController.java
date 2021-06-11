@@ -27,6 +27,7 @@ import kr.or.hotsource.dao.LocationDao;
 import kr.or.hotsource.dto.Beacon;
 import kr.or.hotsource.dto.Flash;
 import kr.or.hotsource.dto.Location;
+import kr.or.hotsource.dto.Locationsensing;
 import kr.or.hotsource.service.BeaconService;
 import kr.or.hotsource.service.FlashService;
 import kr.or.hotsource.service.LocationService;
@@ -147,14 +148,14 @@ public class HetguiApiController {
 	
 	@Logging
 	@RequestMapping(path="/location", method=RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Map<String,Object> locationForForm(Location location){
+	public Map<String,Object> locationForForm(Location location, Locationsensing sensing){
 		Map<String,Object>map = new HashMap<>();
 		location.setClientIp(Util.getIpAddr(
 				((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest()
 		));
-		String userLocation=locationService.recvLocation(location);
-		//System.out.println(location);
-		//System.out.println(userLocation);
+		String userLocation=locationService.recvLocation(location,sensing);
+		logger.info("sensing:"+sensing);
+		logger.info("userLocation:"+userLocation);
 		map.put("status", "success");
 		return map;
 	}

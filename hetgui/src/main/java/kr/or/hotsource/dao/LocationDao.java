@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import kr.or.hotsource.dto.Location;
+import kr.or.hotsource.dto.Locationsensing;
 
 @Repository
 public class LocationDao {
@@ -38,6 +39,20 @@ public class LocationDao {
 		System.out.println(result.get("res"));
 	}
 	*/
+	public String runRecvLocationProc(Location location, Locationsensing sensing) {
+		//SqlParameterSource params = new BeanPropertySqlParameterSource(location);
+		Map<String,Object> params = new HashMap<>();
+		params.put("uuid", location.getUuid());
+		params.put("flash_id", location.getFlashId());
+		params.put("temperature", sensing.getTemperature());
+		params.put("humidity", sensing.getHumidity());
+		params.put("sensing_time", sensing.getSensingTime());
+		System.out.println(sensing.getSensingTime()+"asdsad");
+		jdbcCall.withProcedureName("recvLocationAndSensingProc");
+		Map<String,Object> result = null;
+		result=jdbcCall.execute(params);
+		return (String)result.get("res");
+	}
 	public String runRecvLocationProc(Location location) {
 		SqlParameterSource params = new BeanPropertySqlParameterSource(location);
 		jdbcCall.withProcedureName("recvLocationProc");
@@ -45,5 +60,4 @@ public class LocationDao {
 		result=jdbcCall.execute(params);
 		return (String)result.get("res");
 	}
-	
 }
