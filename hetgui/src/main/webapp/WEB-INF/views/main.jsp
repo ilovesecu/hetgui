@@ -16,10 +16,17 @@
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/hetgui/css/adminlte.css">
+  <style>
+  	.info-box-a:link{
+  		color: #FFF;
+  	}
+  	.info-box-a:visited{
+  		color: #FFF;
+  	}
+  </style>
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
-
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__wobble" src="img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
@@ -63,7 +70,7 @@
                 <span class="info-box-text">Beacons</span>
                 <span class="info-box-number">
                 	${requestScope.beaconCount}<small>개</small>
-                	<span class="clickable"><i class="fas fa-arrow-circle-right"></i></span>
+                	<a class="info-box-a" href="items/beacons"><i class="fas fa-arrow-circle-right"></i></a>
                 </span>
               </div>
               <!-- /.info-box-content --> 
@@ -81,7 +88,7 @@
                 <span class="info-box-text">Flash Lights</span>
                 <span class="info-box-number">
                 	${requestScope.flashCount}<small>개</small>
-                	<span class="clickable"><i class="fas fa-arrow-circle-right"></i></span>
+                	<a class="info-box-a" href="items/flashes"><i class="fas fa-arrow-circle-right"></i></a>
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -890,7 +897,7 @@
       </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
-  </div>
+  </div> 
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
@@ -929,5 +936,40 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="js/pages/dashboard2.js"></script>
 
+<script>
+	const $contentHeader=document.querySelector(".content-header"); //맨 상단 헤더 (계속 쓰이므로 전역변수로 선언)
+	let timerId = null;
+	
+	document.addEventListener('DOMContentLoaded',function(){
+		emergencyAlert();
+		const id = setInterval(emergencyAlert,5000);
+	});
+	const emergencyAlert=()=>{
+		fetch('/hetgui/api/emergency').then((res) => {
+			if (res.status === 200 || res.status === 201) { // 성공을 알리는 HTTP 상태 코드면
+				res.json().then(json => {
+					console.log(json);
+					if(json.emergency===true){
+						if(!timerId)
+							timerId = setInterval(changeHeaderColorRed,1000);
+					}else{
+						if(timerId)clearInterval(timerId);
+						timerId=null;
+						$contentHeader.style.backgroundColor="";
+					}
+				});
+			} else { // 실패를 알리는 HTTP 상태 코드면
+				console.error(res.statusText);
+			}
+		}).catch(err => console.error(err));
+	}
+	
+	const changeHeaderColorRed=()=>{
+		if($contentHeader.style.backgroundColor==="red")
+			$contentHeader.style.backgroundColor="";
+		else
+			$contentHeader.style.backgroundColor="red";
+	}
+</script>
 </body>
 </html>

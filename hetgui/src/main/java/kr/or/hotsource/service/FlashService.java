@@ -11,5 +11,5 @@ public interface FlashService {
 	public Integer deleteFlash(List<Integer>ids);
 	public Flash getFlash(Integer id);
 	public Integer getFlashCount(); //손전등의 총 개수를 반환한다.
-	
+	public List<Flash> getEmergencyFlash(); //비상상황(분리된 손전등)인 손전등을 가져온다.
 }

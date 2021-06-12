@@ -135,6 +135,17 @@ public class HetguiApiController {
 		}
 		return beaconService.deleteBeacons(uuids);
 	}
+	//손전등 Detachment
+	@RequestMapping(path="/emergency", method=RequestMethod.GET)
+	public Map<String,Object> isEmergency() {
+		Map<String,Object>map = new HashMap<>();
+		List<Flash>flashes=flashService.getEmergencyFlash();
+		logger.info("emergency flashes:"+flashes);
+		map.put("status", "success");
+		map.put("emergency", flashes.size()>0?true:false); //detachment='y'인 손전등이 1개라도 있다면 비상상황!
+		map.put("item", flashes);
+		return map;
+	}
 	
 	@Logging
 	@RequestMapping(path="/location", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

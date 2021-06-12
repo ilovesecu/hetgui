@@ -44,4 +44,10 @@ public class FlashServiceImple implements FlashService {
 		return flashDao.updateFlash(flash);
 	}
 
+	//비상상황(분리된 손전등)인 손전등을 가져온다.
+	@Override
+	public List<Flash> getEmergencyFlash() {
+		return flashDao.selectEmergencyFlash();
+	}
+
 }

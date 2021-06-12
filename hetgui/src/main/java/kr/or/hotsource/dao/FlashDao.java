@@ -40,6 +40,11 @@ public class FlashDao {
 	public List<Flash> selectAllFlash(){
 		return jdbc.query(SELECT_ALL_FLASH, Collections.EMPTY_MAP, flashMapper);
 	}
+	//Detachment가 'y'인 플래시를 가져온다.
+	public List<Flash> selectEmergencyFlash(){
+		return jdbc.query(SELECT_EMERGENCY_FLASH, Collections.EMPTY_MAP, flashMapper);
+	}
+	
 	public Flash selectFlash(Integer id) {
 		Map<String,?> params = Collections.singletonMap("id", id);
 		return jdbc.queryForObject(SELECT_FLASH, params, flashMapper);

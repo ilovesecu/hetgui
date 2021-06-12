@@ -53,7 +53,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link active">
+                <a href="/hetgui/main" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v2</p>
                 </a>
@@ -68,7 +68,7 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
+              <i class="nav-icon fas fa-edit"></i>
               <p>
                 Items
                 <i class="fas fa-angle-left right"></i>
