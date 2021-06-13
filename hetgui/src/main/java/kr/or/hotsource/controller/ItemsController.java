@@ -37,8 +37,14 @@ public class ItemsController {
 	}
 	
 	@RequestMapping(path="/beacons", method=RequestMethod.GET)
-	public String getBeacons(ModelMap model) {
-		List<Beacon>beacons = beaconService.getBeacons();
+	public String getBeacons(@RequestParam(name="page", required=false, defaultValue="1")int page, ModelMap model) {
+		int start = (page-1) * BeaconService.PAGING;
+		List<Beacon>beacons = beaconService.getBeacons(start);
+		int totalCount = beaconService.getBeaconCount();
+		int lastPage = (int)Math.ceil(((double)totalCount/BeaconService.PAGING)); //double로 형변환을 해야 소수점이 발생하여 정상적인 값이 출력
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("lastPage",lastPage);
+		model.addAttribute("page",page);
 		model.addAttribute("beacons",beacons);
 		return "beacons";
 	}

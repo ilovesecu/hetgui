@@ -10,12 +10,15 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import static kr.or.hotsource.dao.sqls.BeaconDaoSqls.*;
+import static kr.or.hotsource.dao.sqls.FlashDaoSqls.SELECT_ALL_FLASH_PAGING;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import kr.or.hotsource.dto.Beacon;
+import kr.or.hotsource.dto.Flash;
 
 @Repository
 public class BeaconDao {
@@ -32,9 +35,18 @@ public class BeaconDao {
 		SqlParameterSource params = new BeanPropertySqlParameterSource(beacon);
 		return insertAction.execute(params);
 	}
+	//페이징 X
 	public List<Beacon> selectAllBeacon(){
 		return jdbc.query(SELECT_ALL_BEACON, Collections.EMPTY_MAP, beaconMapper);
 	}
+	//페이징 O
+	public List<Beacon> selectAllBeacon(int start, int limit){
+		Map<String,Object> params = new HashMap<>();
+		params.put("start", start);
+		params.put("limit", limit);
+		return jdbc.query(SELECT_ALL_BEACON_PAGING, params, beaconMapper);
+	}
+	
 	public Beacon selectBeacon(String uuid) {
 		Map<String,?> params = Collections.singletonMap("uuid", uuid);
 		return jdbc.queryForObject(SELECT_BEACON, params, beaconMapper);

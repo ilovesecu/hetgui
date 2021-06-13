@@ -83,12 +83,12 @@
 										<i class="fas fa-sync-alt btn-refresh"></i>
 									</button> 
 									<div class="float-right"> 
-										1-50/200 
+										page : <span class="current">${page }</span>/<span class="last">${lastPage}</span>
 										<div class="btn-group">
-											<button type="button" class="btn btn-default btn-sm">
+											<button type="button" class="prev-page btn btn-default btn-sm">
 												<i class="fas fa-chevron-left"></i>
 											</button>
-											<button type="button" class="btn btn-default btn-sm">
+											<button type="button" class="next-page btn btn-default btn-sm">
 												<i class="fas fa-chevron-right"></i>
 											</button>
 										</div>
@@ -153,12 +153,12 @@
 										<i class="fas fa-sync-alt btn-refresh"></i>
 									</button>
 									<div class="float-right">
-										1-50/200
+										page : <span class="current">${page }</span>/<span class="last">${lastPage}</span>
 										<div class="btn-group">
-											<button type="button" class="btn btn-default btn-sm">
+											<button type="button" class="prev-page btn btn-default btn-sm">
 												<i class="fas fa-chevron-left"></i>
 											</button>
-											<button type="button" class="btn btn-default btn-sm">
+											<button type="button" class="next-page btn btn-default btn-sm">
 												<i class="fas fa-chevron-right"></i>
 											</button>
 										</div>
@@ -249,19 +249,32 @@
 	</tr>
 </script> 
 <script> 
+	let currentPage = 1; //현재 페이지 
+	let lastPage=${lastPage}; //서버에서 계산된 마지막 페이지 
+	let $current; //현재 페이지 정보 [배열]
+	let $last; //마지막 페이지 정보 [배열]
+	
 	/* 비콘 정보 새로고침  */
-	const refreshBeacons =() => {
-		  fetch('/hetgui/api/beacons').then((res) => {
-			  if (res.status === 200 || res.status === 201) { // 성공을 알리는 HTTP 상태 코드면
-			    res.json().then(json => {
-			    	console.log(json); // 텍스트 출력
+	const refreshBeacons =(page) => {
+		const url = new URL('http://localhost:8011/hetgui/api/beacons');
+        const params = {page:page};
+        url.search = new URLSearchParams(params).toString();
+        
+		fetch(url).then((res) => {
+			if (res.status === 200 || res.status === 201) { // 성공을 알리는 HTTP 상태 코드면
+				res.json().then(json => {
+					lastPage=json.lastPage;
+			  		currentPage=json.page;
+			  		Array.prototype.map.call($current,(dom)=>dom.innerText=currentPage); //현재 페이지 정보를 바꿔준다.
+			  		Array.prototype.map.call($last,(dom)=>dom.innerText=lastPage); //마지막 페이지 정보를 바꿔준다.
 			    	bindingTemplate(json.item); //HTML 템플릿에 json 데이터를 바인딩 시킨다.
 			    })
-			  } else { // 실패를 알리는 HTTP 상태 코드면
-			    console.error(res.statusText);
-			  }
-			}).catch(err => console.error(err));
+			} else { // 실패를 알리는 HTTP 상태 코드면
+				console.error(res.statusText);
+			}
+		}).catch(err => console.error(err));
 	};
+	
 	//template에 ajax로 받아온 json데이터를 세팅한다.
 	const bindingTemplate = (dataList) => {
 		const template = document.querySelector("#beaconTemplate").innerText;
@@ -311,7 +324,7 @@
 		}).then((res) => {
 		  if (res.status === 200 || res.status === 201) {
 			  res.text().then(text => console.log(text)); // 텍스트 출력
-			  refreshBeacons();
+			  refreshBeacons(1);
 		  } else {
 		    console.error(res.statusText);
 		  }
@@ -349,12 +362,12 @@
 		  method: 'PUT',
 		  body : JSON.stringify(body),
 		  headers: {
-			  'Content-Type': 'application/json',
+			  'Content-Type': 'application/json', 
 		  },
 		}).then((res) => {
 		  if (res.status === 200 || res.status === 201) {
 			  res.text().then(text => console.log(text)); // 텍스트 출력
-			  refreshBeacons();
+			  refreshBeacons(currentPage);
 		  } else {
 		    console.error(res.statusText);
 		  }
@@ -378,7 +391,7 @@
 		}).then((res) => {
 		  if (res.status === 200 || res.status === 201) {
 			  res.text().then(text => console.log(text)); // 텍스트 출력
-			  refreshBeacons();
+			  refreshBeacons(1);
 		  } else {
 		    console.error(res.statusText);
 		  }
@@ -391,7 +404,13 @@
 		if(classList.contains('btn-trash')){ //삭제 버튼
 			deleteBeacon();
 		}else if(classList.contains('btn-refresh')){ //새로고침 버튼
-			refreshBeacons();
+			refreshBeacons(1);
+		}else if(classList.contains('prev-page')){ //이전 페이지
+			if(currentPage<=1) return;
+			refreshBeacons(--currentPage);
+		}else if(classList.contains('next-page')){ //이전 페이지
+			if(currentPage==lastPage) return ;
+			refreshBeacons(++currentPage);
 		}else if(classList.contains('changeable')){
 			const uuid = e.target.closest('tr').firstElementChild.nextElementSibling.innerText;
 			e.target.dataset.toggle="modal";
@@ -405,6 +424,8 @@
 	document.addEventListener("DOMContentLoaded",function(){
 		const $mainContent = document.querySelector("#mainContent");
 		$mainContent.addEventListener("click",controlEventBubble);
+		$current = document.querySelectorAll("span.current"); //현재 페이지 정보 
+		$last = document.querySelectorAll("span.last");//마지막 페이지 정보
 		
 		//수정 모달이 열리는 순간을 캡쳐하여 Ajax 요청을 보내서 클릭한 손전등에 대한 정보를 세팅한다. (bootstrap4는 jQuery를 사용해야함.)
 		$('#beaconChangeModal').on('show.bs.modal', function (event) {
@@ -440,12 +461,12 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body"> 
         <!-- <form action="/hetgui/api/flashes" method="POST" name="addFlashForm" target="fakeIframe">-->
         <form action="#" name="addBeaconForm">
           <div class="form-group">
             <label for="uuid" class="col-form-label">UUID:</label>
-            <input type="text" class="form-control" name="uuid"/>
+            <input type="text" class="form-control" name="uuid" maxlength="32"/>
           </div>
           <div class="form-group">
             <label for="city" class="col-form-label">City:</label>

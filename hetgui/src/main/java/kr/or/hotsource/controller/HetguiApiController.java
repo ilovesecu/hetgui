@@ -48,6 +48,7 @@ public class HetguiApiController {
 	@Logging
 	@RequestMapping(path="/flashes", method=RequestMethod.GET)
 	public Map<String,Object> getFlashes(int page){
+		if(page==0)page=1;
 		int start = (page-1) * FlashService.PAGING;
 		Map<String,Object>map = new HashMap<>();
 		List<Flash> flashes=flashService.getFlashs(start);
@@ -102,12 +103,19 @@ public class HetguiApiController {
 	
 	//전체 비콘 정보 전송
 	@RequestMapping(path="/beacons", method=RequestMethod.GET)
-	public Map<String,Object> getBeacons(){
+	public Map<String,Object> getBeacons(int page){
+		if(page==0)page=1;
+		int start = (page-1) * BeaconService.PAGING;
 		Map<String,Object>map = new HashMap<>();
-		List<Beacon> beacons=beaconService.getBeacons();
-		logger.info("beacons:"+beacons);
+		List<Beacon> beacons=beaconService.getBeacons(start);
+		int totalCount = beaconService.getBeaconCount();
+		int lastPage = (int)Math.ceil(((double)totalCount/BeaconService.PAGING)); //double로 형변환을 해야 소수점이 발생하여 정상적인 값이 출력
 		map.put("status", "success");
+		map.put("totalCount",totalCount);
+		map.put("lastPage",lastPage);
+		map.put("page",page);
 		map.put("item", beacons);
+		logger.info("result:"+map);
 		return map;
 	}
 	//특정 비콘 정보 전송
