@@ -1,6 +1,7 @@
 package kr.or.hotsource.dao;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,9 +37,16 @@ public class FlashDao {
 		SqlParameterSource params = new BeanPropertySqlParameterSource(flash);
 		return insertAction.executeAndReturnKey(params).intValue();
 	}
-	
+	//페이징 X
 	public List<Flash> selectAllFlash(){
 		return jdbc.query(SELECT_ALL_FLASH, Collections.EMPTY_MAP, flashMapper);
+	}
+	//페이징 O
+	public List<Flash> selectAllFlash(int start, int limit){
+		Map<String,Object> params = new HashMap<>();
+		params.put("start", start);
+		params.put("limit", limit);
+		return jdbc.query(SELECT_ALL_FLASH_PAGING, params, flashMapper);
 	}
 	//Detachment가 'y'인 플래시를 가져온다.
 	public List<Flash> selectEmergencyFlash(){

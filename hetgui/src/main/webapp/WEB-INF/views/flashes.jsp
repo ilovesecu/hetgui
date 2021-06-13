@@ -83,12 +83,12 @@
 										<i class="fas fa-sync-alt btn-refresh"></i>
 									</button> 
 									<div class="float-right"> 
-										1-50/200 
+										page : <span class="current">${page }</span>/<span class="last">${lastPage}</span>
 										<div class="btn-group">
-											<button type="button" class="btn btn-default btn-sm">
+											<button type="button" class="prev-page btn btn-default btn-sm">
 												<i class="fas fa-chevron-left"></i>
 											</button>
-											<button type="button" class="btn btn-default btn-sm">
+											<button type="button" class="next-page btn btn-default btn-sm">
 												<i class="fas fa-chevron-right"></i>
 											</button>
 										</div>
@@ -157,12 +157,12 @@
 										<i class="fas fa-sync-alt btn-refresh"></i>
 									</button>
 									<div class="float-right">
-										1-50/200
+										page : <span class="current">${page }</span>/<span class="last">${lastPage}</span>
 										<div class="btn-group">
-											<button type="button" class="btn btn-default btn-sm">
+											<button type="button" class="prev-page btn btn-default btn-sm">
 												<i class="fas fa-chevron-left"></i>
 											</button>
-											<button type="button" class="btn btn-default btn-sm">
+											<button type="button" class="next-page btn btn-default btn-sm">
 												<i class="fas fa-chevron-right"></i>
 											</button>
 										</div>
@@ -266,18 +266,31 @@
 		}
 	});
 	
+	let currentPage = 1; //현재 페이지 
+	let lastPage=${lastPage}; //서버에서 계산된 마지막 페이지 
+	let $current; //현재 페이지 정보 [배열]
+	let $last; //마지막 페이지 정보 [배열]
+	
 	/* 손전등 정보 새로고침  */
-	const refreshFlashes =() => {
-		  fetch('/hetgui/api/flashes').then((res) => {
-			  if (res.status === 200 || res.status === 201) { // 성공을 알리는 HTTP 상태 코드면
-			    res.json().then(json => {
-			    	console.log(json); // 텍스트 출력
+	const refreshFlashes =(page) => {
+		const url = new URL('http://localhost:8011/hetgui/api/flashes');
+        const params = {page:page};
+        url.search = new URLSearchParams(params).toString();
+        
+		fetch(url).then((res) => {
+			if (res.status === 200 || res.status === 201) { // 성공을 알리는 HTTP 상태 코드면
+				res.json().then(json => {
+			  	console.log(json); // 텍스트 출력
+			  		lastPage=json.lastPage;
+			  		currentPage=json.page;
+			  		Array.prototype.map.call($current,(dom)=>dom.innerText=currentPage); //현재 페이지 정보를 바꿔준다.
+			  		Array.prototype.map.call($last,(dom)=>dom.innerText=lastPage); //마지막 페이지 정보를 바꿔준다.
 			    	bindingTemplate(json.item); //HTML 템플릿에 json 데이터를 바인딩 시킨다.
 			    })
-			  } else { // 실패를 알리는 HTTP 상태 코드면
-			    console.error(res.statusText);
-			  }
-			}).catch(err => console.error(err));
+			} else { // 실패를 알리는 HTTP 상태 코드면
+				console.error(res.statusText);
+			}
+		}).catch(err => console.error(err));
 	};
 	//template에 ajax로 받아온 json데이터를 세팅한다.
 	const bindingTemplate = (dataList) => {
@@ -317,7 +330,7 @@
 		}).then((res) => {
 		  if (res.status === 200 || res.status === 201) {
 			  res.text().then(text => console.log(text)); // 텍스트 출력
-			  refreshFlashes();
+			  refreshFlashes(1);
 		  } else {
 		    console.error(res.statusText);
 		  }
@@ -349,7 +362,7 @@
 		}).then((res) => {
 		  if (res.status === 200 || res.status === 201) {
 			  res.text().then(text => console.log(text)); // 텍스트 출력
-			  refreshFlashes();
+			  refreshFlashes(currentPage); //수정은 현재 페이지가 바로 보일 수 있도록 한다.
 		  } else {
 		    console.error(res.statusText);
 		  }
@@ -373,7 +386,7 @@
 		}).then((res) => {
 		  if (res.status === 200 || res.status === 201) {
 			  res.text().then(text => console.log(text)); // 텍스트 출력
-			  refreshFlashes();
+			  refreshFlashes(1);
 		  } else {
 		    console.error(res.statusText);
 		  }
@@ -386,8 +399,14 @@
 		if(classList.contains('btn-trash')){ //삭제 버튼
 			deleteFlash();
 		}else if(classList.contains('btn-refresh')){ //새로고침 버튼
-			refreshFlashes();
-		}else if(classList.contains('changeable')){
+			refreshFlashes(1);
+		}else if(classList.contains('prev-page')){ //이전 페이지
+			if(currentPage<=1) return;
+			refreshFlashes(--currentPage);
+		}else if(classList.contains('next-page')){ //이전 페이지
+			if(currentPage==lastPage) return ;
+			refreshFlashes(++currentPage);
+		}else if(classList.contains('changeable')){ //테이블을 누르면 수정 모달 띄우기
 			const id = e.target.closest('tr').firstElementChild.nextElementSibling.innerText;
 			e.target.dataset.toggle="modal";
 			e.target.dataset.target="#flashChangeModal";
@@ -400,6 +419,8 @@
 	document.addEventListener("DOMContentLoaded",function(){
 		const $mainContent = document.querySelector("#mainContent");
 		$mainContent.addEventListener("click",controlEventBubble);
+		$current = document.querySelectorAll("span.current"); //현재 페이지 정보 
+		$last = document.querySelectorAll("span.last");//마지막 페이지 정보
 		
 		//수정 모달이 열리는 순간을 캡쳐하여 Ajax 요청을 보내서 클릭한 손전등에 대한 정보를 세팅한다. (bootstrap4는 jQuery를 사용해야함.)
 		$('#flashChangeModal').on('show.bs.modal', function (event) {

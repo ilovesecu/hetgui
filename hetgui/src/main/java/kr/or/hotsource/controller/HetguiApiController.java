@@ -47,17 +47,25 @@ public class HetguiApiController {
 	//전체 손전등 정보 전송
 	@Logging
 	@RequestMapping(path="/flashes", method=RequestMethod.GET)
-	public Map<String,Object> getFlashes(){
+	public Map<String,Object> getFlashes(int page){
+		int start = (page-1) * FlashService.PAGING;
 		Map<String,Object>map = new HashMap<>();
-		List<Flash> flashes=flashService.getFlashs();
-		logger.info("flashes:"+flashes);
+		List<Flash> flashes=flashService.getFlashs(start);
+		
+		int totalCount = flashService.getFlashCount();
+		int lastPage = (int)Math.ceil(((double)totalCount/FlashService.PAGING)); //double로 형변환을 해야 소수점이 발생하여 정상적인 값이 출력
 		map.put("status", "success");
+		map.put("totalCount",totalCount);
+		map.put("lastPage",lastPage);
+		map.put("page",page);
 		map.put("item", flashes);
+		logger.info("result:"+map);
 		return map;
 	}
+	
 	//특정 손전등에 대한 정보 전송
 	@RequestMapping(path="/flashes/{id}", method=RequestMethod.GET)
-	public Map<String,Object> getFlashes(@PathVariable(name="id")int id){
+	public Map<String,Object> getFlash(@PathVariable(name="id")int id){
 		Map<String,Object>map = new HashMap<>();
 		logger.info("id:"+id);
 		Flash flash = flashService.getFlash(id);

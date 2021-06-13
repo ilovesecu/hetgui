@@ -5,7 +5,9 @@ import java.util.List;
 import kr.or.hotsource.dto.Flash;
 
 public interface FlashService {
+	public static final Integer PAGING = 5; //페이지 당 보여질 개수
 	public List<Flash> getFlashs();
+	public List<Flash> getFlashs(int start);
 	public Integer addFlash(Flash flash);
 	public Integer updateFlash(Flash flash);
 	public Integer deleteFlash(List<Integer>ids);

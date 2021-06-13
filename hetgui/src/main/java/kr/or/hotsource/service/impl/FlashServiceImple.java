@@ -12,10 +12,15 @@ import kr.or.hotsource.service.FlashService;
 public class FlashServiceImple implements FlashService {
 	@Autowired
 	FlashDao flashDao;
-	
+	//페이징 X
 	@Override
 	public List<Flash> getFlashs() {
 		return flashDao.selectAllFlash();
+	}
+	//페이징 O
+	@Override
+	public List<Flash> getFlashs(int start) {
+		return flashDao.selectAllFlash(start, FlashService.PAGING);
 	}
 
 	@Override
