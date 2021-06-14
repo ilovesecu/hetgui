@@ -17,6 +17,10 @@ public class LocationServiceImple implements LocationService{
 	
 	@Override
 	public String recvLocation(Location location, Locationsensing sensing) {
+		//센싱 정보가 오지 않았다면 0으로 설정해준다.
+		if(sensing.getTemperature()==null) sensing.setTemperature(0);
+		if(sensing.getHumidity()==null) sensing.setHumidity(0);
+		if(sensing.getSensingTime()==null) sensing.setSensingTime("0000-00-00 00:00:00");
 		return locationDao.runRecvLocationProc(location,sensing);
 	}
 	@Override

@@ -169,7 +169,7 @@ public class HetguiApiController {
 		Map<String,Object>map = new HashMap<>();
 		String userLocation=locationService.recvLocation(location);
 		map.put("status", "success");
-		System.out.println(userLocation);
+		map.put("location", userLocation);
 		return map;
 	}
 	
