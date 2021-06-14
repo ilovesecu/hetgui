@@ -23,6 +23,17 @@
   	.info-box-a:visited{
   		color: #FFF;
   	}
+  	.iframebox{
+  		position:relative;
+  		width:100%;
+  		height:700px;
+  		padding-bottom:56.25%;
+  	}
+  	.iframebox iframe{
+  		position:absolute;
+  		width:100%;
+  		height:100%;	
+  	}
   </style>
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -131,10 +142,10 @@
 
         <div class="row">
           <div class="col-md-12">
-            <div class="card">
+            <div class="card" style="height:900px;">
               <div class="card-header">
-                <h5 class="card-title">Monthly Recap Report</h5>
-
+                <h5 class="card-title">Current Building Map</h5>
+				
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
@@ -157,10 +168,13 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body" style="height:100%;">
                 <div class="row">
                   <div class="col-md-8">
-                    <p class="text-center">
+                  	<div class="iframebox">
+                  		<iframe src="http://127.0.0.1:5500/index.html" frameborder="0" allowfullscreen></iframe>
+                  	</div>
+                    <%-- <p class="text-center">
                       <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
                     </p>
 
@@ -210,7 +224,7 @@
                         <div class="progress-bar bg-warning" style="width: 50%"></div>
                       </div>
                     </div>
-                    <!-- /.progress-group -->
+                    <!-- /.progress-group --> --%>
                   </div>
                   <!-- /.col -->
                 </div>
@@ -265,7 +279,7 @@
         </div>
         <!-- /.row -->
 
-        <!-- Main row -->
+        <%-- <!-- Main row -->
         <div class="row">
           <!-- Left col -->
           <div class="col-md-8">
@@ -893,7 +907,7 @@
           </div>
           <!-- /.col -->
         </div>
-        <!-- /.row -->
+        <!-- /.row --> --%>
       </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
