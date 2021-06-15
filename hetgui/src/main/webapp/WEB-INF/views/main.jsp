@@ -116,8 +116,8 @@
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Sales</span>
-                <span class="info-box-number">760</span>
+                <span class="info-box-text">Demo</span>
+                <span class="info-box-number">400</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -129,8 +129,8 @@
               <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">New Members</span>
-                <span class="info-box-number">2,000</span>
+                <span class="info-box-text">Demo</span>
+                <span class="info-box-number">501</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -142,7 +142,7 @@
 
         <div class="row">
           <div class="col-md-12">
-            <div class="card" style="height:900px;">
+            <div class="card">
               <div class="card-header">
                 <h5 class="card-title">Current Building Map</h5>
 				
@@ -172,7 +172,7 @@
                 <div class="row">
                   <div class="col-md-8">
                   	<div class="iframebox">
-                  		<iframe src="http://127.0.0.1:5500/index.html" frameborder="0" allowfullscreen></iframe>
+                  		<iframe src="http://127.0.0.1:5500/grid/index.html" frameborder="0" allowfullscreen></iframe>
                   	</div>
                     <%-- <p class="text-center">
                       <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
@@ -231,7 +231,7 @@
                 <!-- /.row -->
               </div>
               <!-- ./card-body -->
-              <div class="card-footer">
+              <!-- <div class="card-footer">
                 <div class="row">
                   <div class="col-sm-3 col-6">
                     <div class="description-block border-right">
@@ -239,38 +239,38 @@
                       <h5 class="description-header">$35,210.43</h5>
                       <span class="description-text">TOTAL REVENUE</span>
                     </div>
-                    <!-- /.description-block -->
+                    /.description-block
                   </div>
-                  <!-- /.col -->
+                  /.col
                   <div class="col-sm-3 col-6">
                     <div class="description-block border-right">
                       <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
                       <h5 class="description-header">$10,390.90</h5>
                       <span class="description-text">TOTAL COST</span>
                     </div>
-                    <!-- /.description-block -->
+                    /.description-block
                   </div>
-                  <!-- /.col -->
+                  /.col
                   <div class="col-sm-3 col-6">
                     <div class="description-block border-right">
                       <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
                       <h5 class="description-header">$24,813.53</h5>
                       <span class="description-text">TOTAL PROFIT</span>
                     </div>
-                    <!-- /.description-block -->
+                    /.description-block
                   </div>
-                  <!-- /.col -->
+                  /.col
                   <div class="col-sm-3 col-6">
                     <div class="description-block">
                       <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>
                       <h5 class="description-header">1200</h5>
                       <span class="description-text">GOAL COMPLETIONS</span>
                     </div>
-                    <!-- /.description-block -->
+                    /.description-block
                   </div>
                 </div>
-                <!-- /.row -->
-              </div>
+                /.row
+              </div> -->
               <!-- /.card-footer -->
             </div>
             <!-- /.card -->
