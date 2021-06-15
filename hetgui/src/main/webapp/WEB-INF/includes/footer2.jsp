@@ -8,7 +8,7 @@
     </div> -->
 	<div class="row">
 		<div class="col-md-6">
-			<object data="/hetgui/img/footer.svg" type="image/svg+xml"
+			<object data="/hetgui/img/footer2.svg" type="image/svg+xml"
 				style="float: right;"></object>
 		</div>
 		<div class="col-md-6" style="margin-top: 15px; font-size: 18px;">

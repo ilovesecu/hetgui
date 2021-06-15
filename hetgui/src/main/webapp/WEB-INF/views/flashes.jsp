@@ -181,7 +181,7 @@
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
-		<jsp:include page="../includes/footer.jsp" /> 
+		<jsp:include page="../includes/footer2.jsp" /> 
 
 		<!-- Control Sidebar -->
 		<aside class="control-sidebar control-sidebar-dark">
