@@ -1,5 +1,7 @@
 package kr.or.hotsource.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.or.hotsource.dao.LocationDao;
 import kr.or.hotsource.dto.Location;
 import kr.or.hotsource.dto.Locationsensing;
+import kr.or.hotsource.dto.MapLocation;
 import kr.or.hotsource.service.LocationService;
 
 @Service
@@ -26,5 +29,9 @@ public class LocationServiceImple implements LocationService{
 	@Override
 	public String recvLocation(Location location) {
 		return locationDao.runRecvLocationProc(location);
+	}
+	@Override
+	public List<MapLocation> getLocationByFloor(String floor) {
+		return locationDao.selectLocationByFloor(floor);
 	}
 }

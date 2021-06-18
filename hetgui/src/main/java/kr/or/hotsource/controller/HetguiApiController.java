@@ -28,6 +28,7 @@ import kr.or.hotsource.dto.Beacon;
 import kr.or.hotsource.dto.Flash;
 import kr.or.hotsource.dto.Location;
 import kr.or.hotsource.dto.Locationsensing;
+import kr.or.hotsource.dto.MapLocation;
 import kr.or.hotsource.service.BeaconService;
 import kr.or.hotsource.service.FlashService;
 import kr.or.hotsource.service.LocationService;
@@ -185,6 +186,22 @@ public class HetguiApiController {
 		logger.info("userLocation:"+userLocation);
 		map.put("status", "success");
 		return map;
+	}
+	
+	@Logging
+	@RequestMapping(path="/location", method=RequestMethod.GET)
+	public Map<String,Object> getLocation(String floor){
+		Map<String,Object> result = new HashMap<>();
+		try {
+			List<MapLocation> mapLocations = locationService.getLocationByFloor(floor);
+			result.put("result", "success");
+			result.put("data", mapLocations);
+			logger.info(mapLocations.toString());
+		}catch(Exception e) {
+			result.put("result", "fail");
+			result.put("message",e.getMessage());
+		}
+		return result;
 	}
 	
 }

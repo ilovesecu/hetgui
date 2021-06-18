@@ -170,7 +170,7 @@
               <!-- /.card-header -->
               <div class="card-body" style="height:100%;">
                 <div class="row">
-                  <div class="col-md-8">
+                  <div class="col-md-10"> 
                   	<div class="iframebox">
                   		<iframe src="http://127.0.0.1:5500/grid/index.html" frameborder="0" allowfullscreen></iframe>
                   	</div>
