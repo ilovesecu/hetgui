@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -42,5 +43,15 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
+	
+	//cors요청 설정
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/api/location")
+				.allowedOrigins("http://127.0.0.1:5500")
+				.allowedMethods("GET")
+				.allowCredentials(false).maxAge(3600);
+	}
+	
 	
 }
