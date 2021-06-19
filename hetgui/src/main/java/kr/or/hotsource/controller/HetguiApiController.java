@@ -192,10 +192,25 @@ public class HetguiApiController {
 	@RequestMapping(path="/location", method=RequestMethod.GET)
 	public Map<String,Object> getLocation(String floor){
 		Map<String,Object> result = new HashMap<>();
+		Map<String,Object> dataMap = new HashMap<>();
+		
 		try {
 			List<MapLocation> mapLocations = locationService.getLocationByFloor(floor);
 			result.put("result", "success");
 			result.put("data", mapLocations);
+			
+			List<MapLocation>tempList = new ArrayList<>();
+			for(MapLocation ml : mapLocations) {
+				if(dataMap.containsKey(ml.getSection())) {
+					tempList = (List<MapLocation>)dataMap.get(ml.getSection());
+					tempList.add(ml);
+				}else {
+					tempList = new ArrayList<>();
+					tempList.add(ml);
+					dataMap.put(ml.getSection(), tempList);
+				}
+			}
+			result.put("dataMap", dataMap);
 			logger.info(mapLocations.toString());
 		}catch(Exception e) {
 			result.put("result", "fail");
@@ -203,5 +218,7 @@ public class HetguiApiController {
 		}
 		return result;
 	}
+	
+	
 	
 }
