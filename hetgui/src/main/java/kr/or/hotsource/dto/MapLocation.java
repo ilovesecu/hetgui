@@ -7,6 +7,7 @@ public class MapLocation {
 	String section;
 	int temperature;
 	int humidity;
+	String timeDiff;
 	
 	public int getFlashId() {
 		return flashId;
@@ -44,9 +45,16 @@ public class MapLocation {
 	public void setHumidity(int humidity) {
 		this.humidity = humidity;
 	}
+	
+	public String getTimeDiff() {
+		return timeDiff;
+	}
+	public void setTimeDiff(String timeDiff) {
+		this.timeDiff = timeDiff;
+	}
 	@Override
 	public String toString() {
 		return "MapLocation [flashId=" + flashId + ", uuid=" + uuid + ", floor=" + floor + ", section=" + section
-				+ ", temperature=" + temperature + ", humidity=" + humidity + "]";
+				+ ", temperature=" + temperature + ", humidity=" + humidity + ", timeDiff=" + timeDiff + "]";
 	}
 }

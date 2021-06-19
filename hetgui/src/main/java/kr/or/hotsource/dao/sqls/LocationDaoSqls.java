@@ -15,6 +15,6 @@ public class LocationDaoSqls {
 			"    ON f.uuid = b.uuid\r\n" + 
 			"WHERE b.floor = :floor \r\n" + 
 			"  AND f.detachment = 'y'\r\n" + 
-			"ORDER BY section ASC";
+			"ORDER BY section ASC, time_diff ASC";
 	
 }
