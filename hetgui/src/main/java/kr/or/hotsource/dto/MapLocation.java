@@ -5,8 +5,8 @@ public class MapLocation {
 	String uuid;
 	String floor;
 	String section;
-	int temperature;
-	int humidity;
+	Integer temperature;
+	Integer humidity;
 	String timeDiff;
 	
 	public int getFlashId() {
@@ -33,16 +33,16 @@ public class MapLocation {
 	public void setSection(String section) {
 		this.section = section;
 	}
-	public int getTemperature() {
+	public Integer getTemperature() {
 		return temperature;
 	}
-	public void setTemperature(int temperature) {
+	public void setTemperature(Integer temperature) {
 		this.temperature = temperature;
 	}
-	public int getHumidity() {
+	public Integer getHumidity() {
 		return humidity;
 	}
-	public void setHumidity(int humidity) {
+	public void setHumidity(Integer humidity) {
 		this.humidity = humidity;
 	}
 	

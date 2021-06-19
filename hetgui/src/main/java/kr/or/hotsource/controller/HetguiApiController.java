@@ -168,7 +168,8 @@ public class HetguiApiController {
 	@RequestMapping(path="/location", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String,Object> location(@RequestBody Location location){
 		Map<String,Object>map = new HashMap<>();
-		String userLocation=locationService.recvLocation(location);
+		Locationsensing sensing = new Locationsensing();
+		String userLocation=locationService.recvLocation(location,sensing);
 		map.put("status", "success");
 		map.put("location", userLocation);
 		return map;
@@ -201,10 +202,10 @@ public class HetguiApiController {
 			
 			List<MapLocation>tempList = new ArrayList<>();
 			for(MapLocation ml : mapLocations) {
-				if(dataMap.containsKey(ml.getSection())) {
+				if(dataMap.containsKey(ml.getSection())) { //section이 이미 있다면 있는 리스트를 가져와서 대입
 					tempList = (List<MapLocation>)dataMap.get(ml.getSection());
 					tempList.add(ml);
-				}else {
+				}else { //없다면 새로운 리스트를 만들어서 대입
 					tempList = new ArrayList<>();
 					tempList.add(ml);
 					dataMap.put(ml.getSection(), tempList);
@@ -215,6 +216,7 @@ public class HetguiApiController {
 		}catch(Exception e) {
 			result.put("result", "fail");
 			result.put("message",e.getMessage());
+			e.printStackTrace();
 		}
 		return result;
 	}

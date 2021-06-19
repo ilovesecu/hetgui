@@ -54,12 +54,13 @@ public class LocationDao {
 		params.put("temperature", sensing.getTemperature());
 		params.put("humidity", sensing.getHumidity());
 		params.put("sensing_time", sensing.getSensingTime());
-		System.out.println(sensing.getSensingTime()+"Test:LocationDao");
+		 
+		System.err.println("runRecvLocationProc:"+params);
 		jdbcCall.withProcedureName("recvLocationAndSensingProc");
 		Map<String,Object> result = null;
 		result=jdbcCall.execute(params);
 		return (String)result.get("res");
-	}
+	} 
 	public String runRecvLocationProc(Location location) {
 		SqlParameterSource params = new BeanPropertySqlParameterSource(location);
 		jdbcCall.withProcedureName("recvLocationProc");

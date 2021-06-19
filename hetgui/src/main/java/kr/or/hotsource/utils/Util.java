@@ -18,6 +18,12 @@ public class Util {
 		String time=sdf.format(timestamp);
 		return time;
 	}
+	public static String getTimeStraphhmmss() {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		String time=sdf.format(timestamp);
+		return time;
+	}
 	
 	/*
 	 * 클라이언트 IP주소를 반환한다.
