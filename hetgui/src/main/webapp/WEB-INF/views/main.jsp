@@ -172,7 +172,7 @@
                 <div class="row">
                   <div class="col-md-10"> 
                   	<div class="iframebox">
-                  		<iframe src="http://127.0.0.1:5500/grid/index.html" frameborder="0" allowfullscreen></iframe>
+                  		<iframe src="http://127.0.0.1:5500/index.html" frameborder="0" allowfullscreen></iframe>
                   	</div>
                     <%-- <p class="text-center">
                       <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
