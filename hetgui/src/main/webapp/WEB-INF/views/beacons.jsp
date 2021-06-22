@@ -260,7 +260,7 @@
         const params = {page:page};
         url.search = new URLSearchParams(params).toString();
         
-		fetch(url).then((res) => {
+        fetch('/hetgui/api/beacons?page='+page).then((res) => {
 			if (res.status === 200 || res.status === 201) { // 성공을 알리는 HTTP 상태 코드면
 				res.json().then(json => {
 					lastPage=json.lastPage;

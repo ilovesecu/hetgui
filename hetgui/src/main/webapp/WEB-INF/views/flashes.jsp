@@ -274,10 +274,10 @@
 	/* 손전등 정보 새로고침  */
 	const refreshFlashes =(page) => {
 		const url = new URL('http://localhost:8011/hetgui/api/flashes');
-        const params = {page:page};
+        //const url = new URL('/hetgui/api/flashes');
+		const params = {page:page};
         url.search = new URLSearchParams(params).toString();
-        
-		fetch(url).then((res) => {
+        fetch('/hetgui/api/flashes?page='+page).then((res) => {
 			if (res.status === 200 || res.status === 201) { // 성공을 알리는 HTTP 상태 코드면
 				res.json().then(json => {
 			  	console.log(json); // 텍스트 출력
@@ -291,6 +291,21 @@
 				console.error(res.statusText);
 			}
 		}).catch(err => console.error(err));
+        /*
+		fetch(url).then((res) => {
+			if (res.status === 200 || res.status === 201) { // 성공을 알리는 HTTP 상태 코드면
+				res.json().then(json => {
+			  	console.log(json); // 텍스트 출력
+			  		lastPage=json.lastPage;
+			  		currentPage=json.page;
+			  		Array.prototype.map.call($current,(dom)=>dom.innerText=currentPage); //현재 페이지 정보를 바꿔준다.
+			  		Array.prototype.map.call($last,(dom)=>dom.innerText=lastPage); //마지막 페이지 정보를 바꿔준다.
+			    	bindingTemplate(json.item); //HTML 템플릿에 json 데이터를 바인딩 시킨다.
+			    })
+			} else { // 실패를 알리는 HTTP 상태 코드면
+				console.error(res.statusText);
+			}
+		}).catch(err => console.error(err));*/
 	};
 	//template에 ajax로 받아온 json데이터를 세팅한다.
 	const bindingTemplate = (dataList) => {

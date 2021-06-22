@@ -116,8 +116,8 @@
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Demo</span>
-                <span class="info-box-number">400</span>
+                <span class="info-box-text">Item Shopping</span>
+                <a class="info-box-a" target="_blank" href="http://www.nofire.co.kr/"><i class="fas fa-arrow-circle-right"></i></a>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -129,8 +129,8 @@
               <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Demo</span>
-                <span class="info-box-number">501</span>
+                <span class="info-box-text">About us</span>
+                <a class="info-box-a" href="#"><i class="fas fa-arrow-circle-right"></i></a>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -172,7 +172,9 @@
                 <div class="row">
                   <div class="col-md-10"> 
                   	<div class="iframebox">
-                  		<iframe src="http://127.0.0.1:5500/index.html" frameborder="0" allowfullscreen></iframe>
+                  		 <!-- <iframe src="http://127.0.0.1:5500/index.html" frameborder="0" allowfullscreen></iframe> -->
+                  		 <!-- <iframe src="http://222.102.60.63:5500/index.html" frameborder="0" allowfullscreen></iframe> -->
+                  		 <iframe src="http://59.0.151.237:5500/index.html" frameborder="0" allowfullscreen></iframe>
                   	</div>
                     <%-- <p class="text-center">
                       <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
