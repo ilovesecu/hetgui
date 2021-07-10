@@ -129,7 +129,17 @@
 <img src="https://user-images.githubusercontent.com/77472995/125165114-87a33780-e1d0-11eb-801f-1dff0ccc2d81.png"  width="700" height="370">
 
 # 구현 및 테스트 과정
+## 사진
 <img src="https://user-images.githubusercontent.com/77472995/125169901-4ff3ba00-e1e7-11eb-80dc-5dd6e75495b3.png"  width="700" height="370">
+
+## 동영상
+[![시연연상](http://img.youtube.com/vi/jp4Qo8bUX2M/0.jpg)](https://youtu.be/jp4Qo8bUX2M) 
+
+▲시연영상
+
+[![시연연상](http://img.youtube.com/vi/eQN5lwGYlik/0.jpg)](https://youtu.be/eQN5lwGYlik) 
+
+▲테스트 영상
 
 # 🔍 좀 더 알아보기
 * [시장조사](https://github.com/ilovesecu/hetgui/tree/main/1.%20%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4%20%EB%B8%8C%EB%A0%88%EC%9D%B8%EC%8A%A4%ED%86%A0%EB%B0%8D)
