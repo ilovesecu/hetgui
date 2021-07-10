@@ -101,10 +101,23 @@
 * ### 신뢰성 높은 손전등
   * 만약 라즈베리파이나 주변 IoT 기기들이 고장나 제대로 작동하지 않는다고 해도 손전등의 기본 기능인 주변을 비추는 기능은 기계적으로 구현되어있기 때문에 배터리가 모두 소모되지 않는 이상 계속하여 작동할 수 있도록 구현되어 있습니다.
 
-# Main Modules Used
-* RasberryPi 4 Model B (비콘 스캔 / 
-* Arduino UNO
-* Codezoo LTE CAT.M1
-* HM-10 Bluetooth module
-* Piezo buzzer
-* KY-026 Flame sensor
+# 사용된 모듈
+> * 손전등에 사용된 모듈
+>	> * RaspberryPi 4 Model B (비콘 스캔 / 온습도 센싱 / CAT.M1을 통한 LTE 통신)
+>	>	> * Codezoo LTE CAT.M1 (인터넷에 연결될 수 있도록 하는 LTE통신 모듈)
+>	>	> * Piezo buzzer (비콘을 스캔하면 사용자에게 소리로 알림을 주는 피에조)
+>	>	> * DHT11 (온습도 센서)
+>	> > * 18650 battery (전원공급을 위한 배터리)
+>	> > * 18650 charge module (배터리 충전 모듈)
+>	> > * Li-io 4s BMS (배터리 과충전 보호 모듈)
+>	> > * 5v Fixed Output Drop Converter (12v의 전압을 다른 모듈과 라즈베리 파이가 사용할 수 있도록 5v로 변압)
+>	> > * SPDT switch (손전등 ON/OFF 스위치)
+>	>	> * POWER LED (손전등 기능을 위한 LED)
+
+> * 거치대에 사용된 모듈
+> > * Arduino UNO (화재 경보)
+> > > * KY-026 Flame sensor (화재 감지 센서)
+
+> * 외부 설치 모듈
+> > * HM-10 Bluetooth module (각 층의 특정 구역에 설치되어 사용자의 위치를 알 수 있게하는 비콘 장치)
+
