@@ -1,9 +1,6 @@
-# hetgui
-### hotsource team hetgui project
-### Smart Flashlight
-### Emergency and fire situations
+# :flashlight: Project HETGUI
 
-# Description
+# ⚡Description
 * The current location of the rescuer can be determined by using a flashlight in case of fire and emergency in the building.
 
 # Features
