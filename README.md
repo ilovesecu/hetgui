@@ -121,3 +121,6 @@
 > * 외부 설치 모듈
 >	> * HM-10 Bluetooth module (각 층의 특정 구역에 설치되어 사용자의 위치를 알 수 있게하는 비콘 장치)
 
+# 손전등 회로 설계
+<img src="https://user-images.githubusercontent.com/77472995/125165114-87a33780-e1d0-11eb-801f-1dff0ccc2d81.png"  width="700" height="370">
+
