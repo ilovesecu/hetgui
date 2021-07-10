@@ -126,3 +126,7 @@
 
 # 구현 및 테스트 과정
 <img src="https://user-images.githubusercontent.com/77472995/125169901-4ff3ba00-e1e7-11eb-80dc-5dd6e75495b3.png"  width="700" height="370">
+
+# 🔍 좀 더 알아보기
+* [시장조사](https://github.com/ilovesecu/hetgui/tree/main/1.%20%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4%20%EB%B8%8C%EB%A0%88%EC%9D%B8%EC%8A%A4%ED%86%A0%EB%B0%8D)
+* [프로그램 코드](https://github.com/ilovesecu/hetgui/tree/main/6.%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%20%EC%86%8C%EC%8A%A4%EC%BD%94%EB%93%9C) 
