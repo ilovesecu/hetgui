@@ -57,6 +57,10 @@
   </tr>
 </table>
 
+<img src="https://user-images.githubusercontent.com/77472995/125170231-f1c7d680-e1e8-11eb-8781-51af137018cc.png"  width="700" height="370">
+
+* 브레인 스토밍 과정
+
 ### 1. 중간 아이디어 선정 기준
    - [x] 사회적으로 필요한 아이디어인가?
    - [x] 팀원의 최대 능력 이상을 요구하지는 않는가?
