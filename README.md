@@ -124,3 +124,5 @@
 # 손전등 회로 설계
 <img src="https://user-images.githubusercontent.com/77472995/125165114-87a33780-e1d0-11eb-801f-1dff0ccc2d81.png"  width="700" height="370">
 
+# 구현 및 테스트 과정
+<img src="https://user-images.githubusercontent.com/77472995/125169901-4ff3ba00-e1e7-11eb-80dc-5dd6e75495b3.png"  width="700" height="370">
