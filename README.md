@@ -107,17 +107,17 @@
 >	>	> * Codezoo LTE CAT.M1 (인터넷에 연결될 수 있도록 하는 LTE통신 모듈)
 >	>	> * Piezo buzzer (비콘을 스캔하면 사용자에게 소리로 알림을 주는 피에조)
 >	>	> * DHT11 (온습도 센서)
->	> > * 18650 battery (전원공급을 위한 배터리)
->	> > * 18650 charge module (배터리 충전 모듈)
->	> > * Li-io 4s BMS (배터리 과충전 보호 모듈)
->	> > * 5v Fixed Output Drop Converter (12v의 전압을 다른 모듈과 라즈베리 파이가 사용할 수 있도록 5v로 변압)
->	> > * SPDT switch (손전등 ON/OFF 스위치)
+>	>	> * 18650 battery (전원공급을 위한 배터리)
+>	>	> * 18650 charge module (배터리 충전 모듈)
+>	>	> * Li-io 4s BMS (배터리 과충전 보호 모듈)
+>	>	> * 5v Fixed Output Drop Converter (12v의 전압을 다른 모듈과 라즈베리 파이가 사용할 수 있도록 5v로 변압)
+>	>	> * SPDT switch (손전등 ON/OFF 스위치)
 >	>	> * POWER LED (손전등 기능을 위한 LED)
 
 > * 거치대에 사용된 모듈
-> > * Arduino UNO (화재 경보)
-> > > * KY-026 Flame sensor (화재 감지 센서)
+>	> * Arduino UNO (화재 경보)
+>	>	> * KY-026 Flame sensor (화재 감지 센서)
 
 > * 외부 설치 모듈
-> > * HM-10 Bluetooth module (각 층의 특정 구역에 설치되어 사용자의 위치를 알 수 있게하는 비콘 장치)
+>	> * HM-10 Bluetooth module (각 층의 특정 구역에 설치되어 사용자의 위치를 알 수 있게하는 비콘 장치)
 
