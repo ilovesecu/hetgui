@@ -57,12 +57,12 @@
   </tr>
 </table>
 
-1. **중간 아이디어 선정 기준**
+### 1. 중간 아이디어 선정 기준
    - [x] 사회적으로 필요한 아이디어인가?
    - [x] 팀원의 최대 능력 이상을 요구하지는 않는가?
    - [x] 한정된 예산과 기간안에 할 수 있을만한 것인가?
 
-2. **최종 아이디어 선정 기준**
+### 2. 최종 아이디어 선정 기준
    - [x] 실생활에 바로 적용 가능할 만큼 실용적인가?
    - [x] 캡스톤 기간 내에 만들 수 있는 크기의 프로젝트인가?
    - [x] 제품의 크기가 너무 크지는 않은가?
@@ -79,23 +79,28 @@
 |2020|24,929|**300**|**1,583**|1,883|222,754,093|532,754,002|
 |합계|78,967|**832**|**5,275**|6,107|653,433,635|1,580,626,486|
 
-<center><표1 2018년 ~ 2020년 건축, 구조물 화재 건수 및 인명피해, 부동산 피해 규모><center><br>
+<center><표1 2018년 ~ 2020년 건축, 구조물 화재 건수 및 인명피해, 부동산 피해 규모><br>(출처 : 소방청 국가화재정보센터)</center><br>
 
-* 화재 사전 경보기와 사람들의 인식 변화로 인해 건축,구조물에 대한 화재 건수는 줄어들고 있는 양상이지만 아직까지도 많은 화재가 발생하고 있으며 그에 따라 인명피해도 꾸준히 발생하고 있는 상황입니다. (표1 참고.) 이런 상황에서 Hot source팀은 한명의 인명 피해라도 줄이고자 건물 내부에 IoT를 활용한 스마트 손전등을 만들어 보았습니다.
+* 화재 사전 경보기와 사람들의 인식 변화로 인해 건축,구조물에 대한 화재 건수는 줄어들고 있는 양상이지만 아직까지도 많은 화재가 발생하고 있으며 그에 따라 인명피해도 꾸준히 발생하고 있는 상황입니다. (표1 참고.) 이런 상황에서 Hot source팀은 한명의 인명 피해라도 줄이고자 건물 내부에 IoT를 활용한 **위치알림 비상손전등**을 만들어 보았습니다.
   
-* 기존 비상 손전등은 특별한 기능 없이 그저 손전등 기능한 하여 구조 요청자나 구조자에게 좀 더 직접적인 영향을 주지 못하였습니다. 그것을 보완하게 위해 
+* 기존 비상 손전등은 특별한 기능 없이 그저 손전등 기능한 하여 구조 요청자나 구조자에게 좀 더 직접적인 영향을 주지 못하였습니다. 그것을 보완하게 위해 IoT를 도입하여 센서와 비콘 정보를 LTE모듈을 통해 인터넷에 연결하여 서버에 전달하는 손전등을 구현하였습니다.
 
-# Features
-1. HM-10 Bluetooth module supports Bluetooth 4.0BLE, is low power efficient, and is easy to install due to miniaturization.
+# 📝특징
+* ### 실시간 위치 추적
+  * GPS를 통한 위치 추적도 있지만 GPS를 사용한다면 지하나 다층 건물에서는 구조 요청자가 어떤 위치에 있는지 정확히 알기 힘든 점에 착안하여 **비콘**을 사용하여 사용자가 몇층 어떤 구역에 있는지 알 수 있도록 하였습니다.
+  * 비콘을 스캔하여 서버로 위치를 전송할 때는 사용자도 쉽게 알아차릴 수 있도록 피에조 부저를 통해서 소리가 나도록 하였습니다.
 
-2. A beacon scanner is mounted on a flashlight to deliver information to the outside world where you are currently in the process of escaping the building.
+* ### 웹을 통한 손쉬운 접근
+  * 전세계 인터넷만 통한다면 어디서든 접근할 수 있도록 웹을 통해서 관리자 페이지를 만들었으며, 관리자 페이지를 통해 구조요청자의 위치도 파악할 수 있습니다.
 
-3. Considering that the building's network will be paralyzed, the LTE cat.m1 module can be used to transmit location information to the server using its own network.
+* ### 손전등이 없다면? 앱을 통한 위치 전송
+  * 만약에 주변에 손전등이 없다면 스마트폰 앱을 통해서 외부로 자신의 위치를 알릴 수 있도록 스마트폰 앱을 구현하였으며, 서버 또한 손전등, 스마트폰의 신호에 대응하도록 구현 되어있습니다.
 
-4. Firefighters and rescuers can find out where survivors are by viewing this information on the web or on an app, allowing them to conduct rescue operations more quickly.
+* ### 신뢰성 높은 손전등
+  * 만약 라즈베리파이나 주변 IoT 기기들이 고장나 제대로 작동하지 않는다고 해도 손전등의 기본 기능인 주변을 비추는 기능은 기계적으로 구현되어있기 때문에 배터리가 모두 소모되지 않는 이상 계속하여 작동할 수 있도록 구현되어 있습니다.
 
 # Main Modules Used
-* RasberryPi 4 Model B
+* RasberryPi 4 Model B (비콘 스캔 / 
 * Arduino UNO
 * Codezoo LTE CAT.M1
 * HM-10 Bluetooth module
