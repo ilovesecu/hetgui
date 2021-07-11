@@ -47,6 +47,26 @@
 
 * 화재감지 센서를 통해 화재가 감지된다면 건물 내부 사람들에게 알리기 위해 피에조가 울립니다.<br><br>
 
+# 모바일 어플리케이션
+<img src='https://user-images.githubusercontent.com/86318450/125183639-32f4d080-e253-11eb-9335-a250375914e1.png' width=200px height=380px/> <img src='https://user-images.githubusercontent.com/86318450/125183667-67688c80-e253-11eb-960b-1781b12983e4.png' width=200px height=380px/> <img src='https://user-images.githubusercontent.com/86318450/125183670-68012300-e253-11eb-8cbb-77273d7656b4.png' width=200px height=380px/>
+
+모바일 어플리케이션 구성도입니다.
+1. 지도화면
+2. 사이렌, 플래시화면
+3. 도움화면
+
+<img src='https://user-images.githubusercontent.com/86318450/125183845-89aeda00-e254-11eb-8e40-a6e9dd83c43e.jpg' width=200px height=380px/> <img src='https://user-images.githubusercontent.com/86318450/125183847-8a477080-e254-11eb-9960-5a600c1b5e41.jpg' width=200px height=380px/> <img src='https://user-images.githubusercontent.com/86318450/125183848-8ae00700-e254-11eb-8d3d-69bb1c13d5f6.jpg' width=200px height=380px/>
+
+* 모바일 어플리케이션을 실행 후 블루투스 권한을 받고, 비콘의 신호를 받으면 스캔하여 서버로 전송하고 위치정보를 받아와 화면에 표시해줍니다.
+
+<img src='https://user-images.githubusercontent.com/86318450/125183667-67688c80-e253-11eb-960b-1781b12983e4.png' width=200px height=380px/> <img src='https://user-images.githubusercontent.com/86318450/125183935-0f328a00-e255-11eb-9aa1-d825156612ec.jpg' width=200px height=380px/>
+
+* 사이렌버튼, 플래시버튼을 이용하여 각 기능을 On, Off 할 수 있습니다.
+
+<img src='https://user-images.githubusercontent.com/86318450/125183670-68012300-e253-11eb-8cbb-77273d7656b4.png' width=200px height=380px/> <img src='https://user-images.githubusercontent.com/86318450/125184046-b4e5f900-e255-11eb-8899-c5fd1cd66d78.jpg' width=130px height=220px/> <img src='https://user-images.githubusercontent.com/86318450/125184047-b57e8f80-e255-11eb-9c49-89f86c1a1dd1.jpg' width=130px height=220px/> <img src='https://user-images.githubusercontent.com/86318450/125184048-b6172600-e255-11eb-9019-218190c16495.jpg' width=130px height=220px/> <img src='https://user-images.githubusercontent.com/86318450/125184065-da730280-e255-11eb-8bb8-80615322e324.jpg' width=130px height=220px/>
+
+* 각각의 버튼은 대피상황에 맞는 사이트를 연결하고, 긴급전화 버튼으로 119로 통화가 가능합니다.
+
 # 웹 사이트
 <img src='https://user-images.githubusercontent.com/77472995/125169482-584af580-e1e5-11eb-9071-5f710f2f3b8f.png' width=700px height=350px/>
  
